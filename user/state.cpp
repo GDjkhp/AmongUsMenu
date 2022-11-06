@@ -84,6 +84,9 @@ void Settings::Load() {
         JSON_TRYGET("RevealAnonymousVotes", this->RevealAnonymousVotes);
 
         JSON_TRYGET("ShowChat", this->ShowChat);
+
+        // custom json settings
+        JSON_TRYGET("LockWindows", this->LockWindows);
         JSON_TRYGET("Teleport", this->Teleport);
     } catch (...) {
         Log.Info("Unable to load settings.json");
@@ -155,6 +158,9 @@ void Settings::Save() {
 
             {"ShowChat", this->ShowChat},
             {"Teleport", this->Teleport},
+
+            // custom json settings
+            {"LockWindows", this->LockWindows},
         };
 
         std::ofstream outSettings(settingsPath);

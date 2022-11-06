@@ -3,9 +3,9 @@
 #include "state.hpp"
 #include <imgui/imgui.h>
 
-#define HI(v)   ImVec4(0.502f, 0.075f, 0.256f, v)
-#define MED(v)  ImVec4(0.455f, 0.198f, 0.301f, v)
-#define LOW(v)  ImVec4(0.232f, 0.201f, 0.271f, v)
+#define HI(v)   ImVec4(0.0f, 0.5f, 0.0f, v)
+#define MED(v)  ImVec4(0.0f, 0.5f, 0.0f, v)
+#define LOW(v)  ImVec4(0.0f, 0.25f, 0.0f, v)
 #define BG(v)   ImVec4(0.200f, 0.220f, 0.270f, v)
 #define IMGUI_TEXT(v) ImVec4(0.860f, 0.930f, 0.890f, v)
 

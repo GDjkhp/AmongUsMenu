@@ -39,6 +39,11 @@ namespace ConsoleGui
 	void Render() {
 		ConsoleGui::Init();
 
+		if (State.LockWindows)
+			ImGui::Begin("Console", &State.ShowConsole, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove);
+		else
+			ImGui::Begin("Console", &State.ShowConsole, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
+
 		ImGui::Begin("Console", &State.ShowConsole, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
 		ImGui::BeginChild("console#filter", ImVec2(520, 20) * State.dpiScale, true);
 		ImGui::Text("Event Filter: ");

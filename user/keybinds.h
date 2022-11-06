@@ -17,6 +17,10 @@ namespace KeyBinds {
         uint8_t Close_Current_Room_Door;
         uint8_t Toggle_Replay;
         uint8_t Toggle_Chat;
+
+        // custom keybinds
+        uint8_t Finish_Tasks;
+        uint8_t Toggle_Hacks;
     };
 
     void WndProc(UINT uMsg, WPARAM wParam, LPARAM lParam);

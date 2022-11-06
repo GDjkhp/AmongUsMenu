@@ -20,6 +20,12 @@ namespace TasksTab {
 						}
 					}
 
+					// set up keybind
+					ImGui::SameLine();
+					if (HotKey(State.KeyBinds.Finish_Tasks)) {
+						State.Save();
+					}
+
 					ImGui::NewLine();
 
 					for (auto task : tasks) {
