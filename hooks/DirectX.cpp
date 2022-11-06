@@ -356,6 +356,22 @@ HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags
 
 			Esp::Render();
 
+            // TODO: teleport test
+            if (ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
+                ImVec2 mouse = ImGui::GetMousePos();
+
+                Vector2 target = {
+                    mouse.x - DirectX::GetWindowSize().x / 2,
+                    (mouse.y - DirectX::GetWindowSize().y / 2) * -1.0f
+                };
+
+                target = {
+                    ScreenToWorld(target).x, ScreenToWorld(target).y
+                };
+
+                State.rpcQueue.push(new RpcSnapTo(target));
+            }
+
 			s_Cache.Window->DrawList->PushClipRectFullScreen();
 
 			ImGui::PopStyleColor();

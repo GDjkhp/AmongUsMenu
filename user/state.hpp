@@ -115,11 +115,7 @@ public:
     std::chrono::system_clock::time_point MatchLive;
 
     // start custom settings
-
     bool LockWindows = false;
-
-    bool Teleport = false;
-
     // end custom settings
 
     // NOTE:
