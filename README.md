@@ -4,6 +4,27 @@
    AmongUsMenu is a Cheat Menu for the popular Game Among Us.
 </p>
 
+# AmongUsMenu (Noobuild Edition)
+
+### Features:
+- Support
+	- Mod support
+	- Platform support (Steam, Epic, Itch.io)
+	- Older Windows version support
+- ESP fixes
+	- Infos within screen
+	- Player names + colors + roles revamp
+- More button support
+	- Toggle Hacks
+	- Complete all tasks
+	- Unlock specific door
+- Lock/Snap GUI Windows
+- Custom themes
+- Horse mode
+- Custom free/quick chat
+- Right click to teleport within screen
+- More cool stuff soon...
+
 ## Disclaimer
 This project is for Educational Use only. We do not condone this software being used to gain an advantage against other people. I made this project for my university project to show how cheating software works and how it is possible to block these manipulations in the future.
 
