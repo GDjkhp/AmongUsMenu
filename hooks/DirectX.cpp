@@ -119,6 +119,19 @@ LRESULT __stdcall dWndProc(const HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lPa
     if (KeyBinds::IsKeyPressed(State.KeyBinds.Toggle_Replay)) State.ShowReplay = !State.ShowReplay;
     if (KeyBinds::IsKeyPressed(State.KeyBinds.Toggle_Chat)) State.ShowChat = !State.ShowChat;
 
+    // custom keybinds
+    if (KeyBinds::IsKeyPressed(State.KeyBinds.Finish_Tasks) && IsInGame()) { // funny that it still works even impostor
+        auto tasks = GetNormalPlayerTasks(*Game::pLocalPlayer);
+        for (auto task : tasks) {
+            if (task->fields.taskStep != task->fields.MaxStep)
+                State.rpcQueue.push(new RpcCompleteTask(task->fields._._Id_k__BackingField));
+        }
+    }
+
+    if (KeyBinds::IsKeyPressed(State.KeyBinds.Toggle_Hacks)) {
+
+    }
+
     return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 }
 
@@ -342,6 +355,22 @@ HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags
 			ImGui::SetWindowSize(s_Cache.Winsize, ImGuiCond_Always);
 
 			Esp::Render();
+
+            // TODO: teleport test
+            if (ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
+                ImVec2 mouse = ImGui::GetMousePos();
+
+                Vector2 target = {
+                    mouse.x - DirectX::GetWindowSize().x / 2,
+                    (mouse.y - DirectX::GetWindowSize().y / 2) * -1.0f
+                };
+
+                target = {
+                    ScreenToWorld(target).x, ScreenToWorld(target).y
+                };
+
+                State.rpcQueue.push(new RpcSnapTo(target));
+            }
 
 			s_Cache.Window->DrawList->PushClipRectFullScreen();
 

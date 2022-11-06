@@ -464,7 +464,10 @@ namespace Replay
 		const auto& map = maps[(size_t)State.mapType];
 		ImGui::SetNextWindowSize(ImVec2((map.mapImage.imageWidth * 0.5f) + 50.0f, (map.mapImage.imageHeight * 0.5f) + 90.f) * State.dpiScale, ImGuiCond_None);
 
-		ImGui::Begin("Replay", &State.ShowReplay, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse);
+		if (State.LockWindows)
+			ImGui::Begin("Replay", &State.ShowReplay, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoMove);
+		else
+			ImGui::Begin("Replay", &State.ShowReplay, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse);
 
 		ImGui::BeginChild("replay#filter", ImVec2(0, 20) * State.dpiScale, true);
 		ImGui::Text("Event Filter: ");

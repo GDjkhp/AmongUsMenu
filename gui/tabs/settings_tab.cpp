@@ -66,10 +66,16 @@ namespace SettingsTab {
 			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
 			ImGui::Separator();
 			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+			if (ImGui::Button("No achievements :("))
 
 			if (Achievements::IsSupported()
 				&& ImGui::Button("Unlock all achievements"))
 			{
+				/*for (const char* achievement : steamAchievements)
+				{
+					Game::SteamUserStats_SetAchievement(convert_to_string(std::string(achievement)));
+				}
+				Game::SteamUserStats_StoreStats();*/
 				Achievements::UnlockAll();
 			}
 

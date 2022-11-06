@@ -69,6 +69,8 @@ static void RenderBox(const ImVec2& top, const ImVec2& bottom, const float heigh
 	}
 }
 
+bool renderPlayerEsp = false;
+
 void Esp::Render()
 {
 	CurrentWindow = ImGui::GetCurrentWindow();
@@ -77,6 +79,48 @@ void Esp::Render()
 
 	// Lock our mutex when we render (this will unlock when it goes out of scope)
 	synchronized(instance.m_DrawingMutex) {
+		// testing some stuffs
+		if (renderPlayerEsp) {
+			for (auto& it : instance.m_Players)
+			{
+				if (const auto& player = it.playerData.validate();
+					player.has_value()						//Verify PlayerControl hasn't been destroyed (happens when disconnected)
+					&& !player.is_Disconnected()		//Sanity check, shouldn't ever be true
+					&& player.is_LocalPlayer()			//highlight yourself, you're ugly
+					&& (!player.get_PlayerData()->fields.IsDead || State.ShowEsp_Ghosts)
+					&& it.OnScreen)
+				{
+					if (State.ShowEsp_Box)
+					{
+						float width = GetScaleFromValue(35.0f);
+						float height = GetScaleFromValue(120.0f);
+
+						ImVec2 top{ it.Position.x + width, it.Position.y };
+						ImVec2 bottom{ it.Position.x - width, it.Position.y - height };
+
+						RenderBox(top, bottom, height, width, it.Color);
+					}
+
+					// TODO: show x and y
+					if (State.ShowEsp_Distance)
+					{
+						const ImVec2 position{ it.Position.x, it.Position.y + 15.0f * State.dpiScale };
+
+						Vector2 mouse = {
+							ImGui::GetMousePos().x, ImGui::GetMousePos().y
+						};
+
+						std::string lel = std::to_string(ScreenToWorld(mouse).x) + ", " + std::to_string(ScreenToWorld(mouse).y);
+
+						std::string lol = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
+						char* player = lol.data();
+
+						RenderText(player, position, it.Color);
+					}
+				}
+			}
+		}
+		// track player codes
 		for (auto& it : instance.m_Players)
 		{
 			if (const auto& player = it.playerData.validate();
@@ -104,12 +148,67 @@ void Esp::Render()
 				/////////////////////////////////
 				if (State.ShowEsp_Distance)
 				{
-					const ImVec2 position{ it.Position.x, it.Position.y + 15.0f * State.dpiScale };
+					// logic and calculation
+					ImVec2 position = { it.Position.x, it.Position.y + 15.0f * State.dpiScale };
+					ImVec2 position2 = { it.Position.x, it.Position.y + 30.0f * State.dpiScale };
 
+					// infamous trash codes
+					float minX = 80.0f, minY = 0.0f, maxX = 1280.0f, maxY = 730.0f;
+
+					if (it.Position.x < minX) {
+						if (it.Position.y < minY) {
+							position = { minX, minY + 15.0f * State.dpiScale };
+							position2 = { minX, minY + 30.0f * State.dpiScale };
+						}
+						else if (it.Position.y > maxY) {
+							position = { minX, maxY + 15.0f * State.dpiScale };
+							position2 = { minX, maxY + 30.0f * State.dpiScale };
+						}
+						else {
+							position = { minX, it.Position.y + 15.0f * State.dpiScale };
+							position2 = { minX, it.Position.y + 30.0f * State.dpiScale };
+						}
+
+					}
+					else if (it.Position.x > maxX) {
+						if (it.Position.y > maxY) {
+							position = { maxX, maxY + 15.0f * State.dpiScale };
+							position2 = { maxX, maxY + 30.0f * State.dpiScale };
+						}
+						else if (it.Position.y < minY) {
+							position = { maxX, minY + 15.0f * State.dpiScale };
+							position2 = { maxX, minY + 30.0f * State.dpiScale };
+						}
+						else {
+							position = { maxX, it.Position.y + 15.0f * State.dpiScale };
+							position2 = { maxX, it.Position.y + 30.0f * State.dpiScale };
+						}
+					}
+					else {
+						if (it.Position.y < minY) {
+							position = { it.Position.x, minY + 15.0f * State.dpiScale };
+							position2 = { it.Position.x, minY + 30.0f * State.dpiScale };
+						}
+						else if (it.Position.y > maxY) {
+							position = { it.Position.x, maxY + 15.0f * State.dpiScale };
+							position2 = { it.Position.x, maxY + 30.0f * State.dpiScale };
+						}
+						else {
+							position = { it.Position.x, it.Position.y + 15.0f * State.dpiScale };
+							position2 = { it.Position.x, it.Position.y + 30.0f * State.dpiScale };
+						}
+					}
+
+					// strings
 					char distance[32];
 					sprintf_s(distance, "[%.0fm]", it.Distance);
 
+					std::string lol = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
+					char* player = lol.data();
+
+					// render info
 					RenderText(distance, position, it.Color);
+					RenderText(player, position2, it.Color);
 				}
 				/////////////////////////////////
 				//// Tracers ////////////////////

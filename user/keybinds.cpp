@@ -193,6 +193,10 @@ void KeyBinds::to_json(nlohmann::ordered_json& j, KeyBinds::Config value)
         {"Close_Current_Room_Door", value.Close_Current_Room_Door},
         {"Toggle_Replay", value.Toggle_Replay},
         {"Toggle_Chat", value.Toggle_Chat},
+
+        // custom keybinds
+        {"Finish_Tasks", value.Finish_Tasks},
+        {"Toggle_Hacks", value.Toggle_Hacks},
     };
 }
 
@@ -209,4 +213,8 @@ void KeyBinds::from_json(const nlohmann::ordered_json& j, KeyBinds::Config& valu
     j.at("Close_Current_Room_Door").get_to(value.Close_Current_Room_Door);
     j.at("Toggle_Replay").get_to(value.Toggle_Replay);
     j.at("Toggle_Chat").get_to(value.Toggle_Chat);
+
+    // custom keybinds
+    j.at("Finish_Tasks").get_to(value.Finish_Tasks);
+    j.at("Toggle_Hacks").get_to(value.Toggle_Hacks);
 }

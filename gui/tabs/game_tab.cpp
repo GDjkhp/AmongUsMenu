@@ -5,6 +5,8 @@
 #include "imgui/imgui.h"
 #include "state.hpp"
 #include "utility.h"
+#include <DirectX.h>
+#include "esp.hpp"
 
 namespace GameTab {
 	void Render() {
@@ -76,6 +78,13 @@ namespace GameTab {
 				State.Save();
 			}
 
+			// feature by noob
+			ImGui::SameLine(215 * State.dpiScale);
+
+			if (ImGui::Checkbox("Lock Windows", &State.LockWindows)) {
+				State.Save();
+			}
+
 			ImGui::Dummy(ImVec2(4, 4) * State.dpiScale);
 
 			if (ImGui::Checkbox("AUM Chat", &State.ShowChat)) {
@@ -95,8 +104,41 @@ namespace GameTab {
 			{
 				State.rpcQueue.push(new RpcUsePlatform());
 			}
-#ifdef _DEBUG
-			if (IsInGame() || IsInLobby())
+
+			// debug stuff
+			if ((IsInGame() || IsInLobby())) {
+				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+				ImGui::Separator();
+				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+
+				// okay this is crazy
+				std::string win =
+					std::to_string(DirectX::GetWindowSize().x) + ", " +
+					std::to_string(DirectX::GetWindowSize().y);
+
+				Vector2 mouse = {
+					ImGui::GetMousePos().x - DirectX::GetWindowSize().x / 2,
+					(ImGui::GetMousePos().y - DirectX::GetWindowSize().y / 2) * -1.0f
+				};
+				std::string mousep =
+					std::to_string(ScreenToWorld(mouse).x) + ", " +
+					std::to_string(ScreenToWorld(mouse).y);
+				std::string smouse =
+					std::to_string(mouse.x) + ", " +
+					std::to_string(mouse.y);
+
+				std::string loc =
+					std::to_string(PlayerControl_GetTruePosition(*Game::pLocalPlayer, nullptr).x) + ", " +
+					std::to_string(PlayerControl_GetTruePosition(*Game::pLocalPlayer, nullptr).y);
+
+				ImGui::Text("Window Size: %s", win);
+				ImGui::Text("Player Pos: %s", loc);
+				ImGui::Text("Mouse Input: %s", smouse);
+				ImGui::Text("Screen to World Adjusted Mouse Input: %s", mousep);
+			}
+
+
+			if ((IsInGame() || IsInLobby()) && Game::pGameOptionsData != NULL)
 			{
 				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
 				ImGui::Separator();
@@ -108,11 +150,11 @@ namespace GameTab {
 					auto allPlayers = GetAllPlayerControl();
 					RoleRates roleRates = RoleRates(options, (int)allPlayers.size());
 					// this should be all the major ones. if people want more they're simple enough to add.
-					ImGui::Text("Visual Tasks: %s", (options.GetBool(app::BoolOptionNames__Enum::VisualTasks) ? "on" : "off"));
-					ImGui::Text("Taskbar Update Mode: %s", (options.GetInt(app::Int32OptionNames__Enum::TaskBarMode)
-															== (int)app::TaskBarMode__Enum::Normal ? "Normal" : "MeetingOnly"));
-					ImGui::Text("Confirm Impostor: %s", (options.GetBool(app::BoolOptionNames__Enum::ConfirmImpostor) ? "on" : "off"));
-					ImGui::Text("Kill CD: %.2f", options.GetKillCooldown());
+					ImGui::Text("Visual Tasks: %s", (options->fields.VisualTasks == true ? "on" : "off"));
+					ImGui::Text("Taskbar Update Mode: %s", (options->fields.TaskBarMode == app::TaskBarMode__Enum::Normal ? "Normal" : "MeetingOnly"));
+					ImGui::Text("Anonymous Votes: %s", (options->fields.AnonymousVotes == true ? "on" : "off"));
+					ImGui::Text("Confirm Impostor: %s", (options->fields.ConfirmImpostor == true ? "on" : "off"));
+					ImGui::Text("Kill CD: %.2f", options->fields._.killCooldown);
 
 					ImGui::Dummy(ImVec2(3, 3) * State.dpiScale);
 					ImGui::Separator();
@@ -146,7 +188,7 @@ namespace GameTab {
 					// TODO: HideNSeek
 				}
 			}
-#endif
+
 			ImGui::EndTabItem();
 		}
 	}

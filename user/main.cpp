@@ -37,13 +37,13 @@ std::string GetCRC32(std::filesystem::path filePath) {
 bool GameVersionCheck() {
 	auto modulePath = getModulePath(NULL);
 	auto gameAssembly = modulePath.parent_path() / "GameAssembly.dll";
-	auto steamApi = modulePath.parent_path() / "Among Us_Data" / "Plugins" / "x86" / "steam_api.dll";
+	//auto steamApi = modulePath.parent_path() / "Among Us_Data" / "Plugins" / "x86" / "steam_api.dll";
 
-	if (!IsWindows10OrGreater()) {
+	/*if (!IsWindows10OrGreater()) {
 		Log.Error("Version of windows not supported exiting!");
 		MessageBox(NULL, L"This version of Windows is not supported!", L"AmongUsMenu", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
 		return false;
-	}
+	}*/
 
 	if (!std::filesystem::exists(gameAssembly)) {
 		Log.Error("GameAssembly.dll was not found");
@@ -119,7 +119,7 @@ void Run(LPVOID lpParam) {
 	LOG_DEBUG(std::format("Game::RoleManager is {}", static_cast<void*>(Game::RoleManager.GetInstance())));
 	State.userName = GetPlayerName();
 
-	Game::scanGameFunctions();
+	//Game::scanGameFunctions();
 	DetourInitilization();
 #if _DEBUG
 	managedThreadAttached.detach();
