@@ -33,7 +33,11 @@ namespace ChatGui
 	void Render() {
 		ChatGui::Init();
 
-		ImGui::Begin("Chat", &State.ShowChat, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
+		if (State.LockWindows)
+			ImGui::Begin("Chat", &State.ShowChat, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoMove);
+		else
+			ImGui::Begin("Chat", &State.ShowChat, ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar);
+
 		ImGui::BeginChild("chat#scroll", ImVec2(511, 270) * State.dpiScale, true, ImGuiWindowFlags_AlwaysVerticalScrollbar);
 
 		size_t i = 0;

@@ -65,7 +65,7 @@ void dHudManager_Update(HudManager* __this, MethodInfo* method) {
 
 void dVersionShower_Start(VersionShower* __this, MethodInfo* method) {
 	app::VersionShower_Start(__this, method);
-	const auto& versionText = std::format("{}\n<size=70%>AmongUsMenu - {} - {}</size>",
+	const auto& versionText = std::format("{}\n<size=70%>AmongUsMenu (Noobuild) - {} - {}</size>", // everyone's favorite branch
 		convert_from_string(app::TMP_Text_get_text((app::TMP_Text*)__this->fields.text, nullptr)),
 		GetGitCommit().substr(0, 7), GetGitBranch()
 	);

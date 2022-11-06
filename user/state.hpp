@@ -20,7 +20,11 @@ public:
         0x00, // toggle zoom
         0x00, // toggle freecam
         0x00, // close current room door
-        VK_END // toggle replay
+        VK_END, // toggle replay
+
+        // custom keybinds
+        0x00, // finish tasks
+        0x00, // toggle hacks
     };
 
     bool ImGuiInitialized = false;
@@ -105,6 +109,13 @@ public:
     std::chrono::system_clock::time_point MatchCurrent;
     std::chrono::system_clock::time_point MatchEnd;
     std::chrono::system_clock::time_point MatchLive;
+
+    // start custom settings
+
+    bool LockWindows = false;
+
+    // end custom settings
+
     // NOTE:
     // any code that modifies State.liveReplayEvents or any other collection should use the Replay.replayEventMutex
     // failure to do so will invalidate any existing iterator of any thread which will lead to rare and hard to diagnose crashes
