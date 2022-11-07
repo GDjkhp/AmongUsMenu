@@ -153,7 +153,7 @@ void Esp::Render()
 					ImVec2 position2 = { it.Position.x, it.Position.y + 30.0f * State.dpiScale };
 
 					// infamous trash codes
-					float minX = 80.0f, minY = 0.0f, maxX = 1280.0f, maxY = 730.0f;
+					float minX = 40.0f, minY = 0.0f, maxX = 1320.0f, maxY = 730.0f;
 
 					if (it.Position.x < minX) {
 						if (it.Position.y < minY) {
@@ -203,9 +203,11 @@ void Esp::Render()
 					char distance[32];
 					sprintf_s(distance, "[%.0fm]", it.Distance);
 
-					//std::string lol = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
+					//std::string lol2 = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
 					std::string lol = it.Name;
+
 					char* player = lol.data();
+					//char* pl = lol2.data();
 
 					// render info
 					RenderText(player, position, it.ColorId);
