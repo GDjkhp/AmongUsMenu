@@ -213,7 +213,9 @@ void Esp::Render()
 					sprintf_s(distance, "[%.0fm]", it.Distance);
 					
 					std::string lol = it.Name;
+
 					char* player = lol.data();
+					//char* pl = lol2.data();
 
 					//std::string lol2 = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
 					//char* pl = lol2.data();
