@@ -65,6 +65,7 @@ struct EspPlayerData
 {
 	ImVec2 Position = { 0.0f, 0.0f };
 	ImVec4 Color{ 0.0f, 0.0f, 0.0f, 0.0f };
+	ImVec4 ColorId{ 0.0f, 0.0f, 0.0f, 0.0f };
 
 	std::string Name = std::string();
 
