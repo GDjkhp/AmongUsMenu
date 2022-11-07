@@ -203,12 +203,13 @@ void Esp::Render()
 					char distance[32];
 					sprintf_s(distance, "[%.0fm]", it.Distance);
 
-					std::string lol = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
+					//std::string lol = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
+					std::string lol = it.Name;
 					char* player = lol.data();
 
 					// render info
-					RenderText(distance, position, it.Color);
-					RenderText(player, position2, it.Color);
+					RenderText(player, position, it.ColorId);
+					RenderText(distance, position2, it.Color); // change this to player name + color + kill cd
 				}
 				/////////////////////////////////
 				//// Tracers ////////////////////

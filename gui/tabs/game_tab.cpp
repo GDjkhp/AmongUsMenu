@@ -8,6 +8,8 @@
 #include <DirectX.h>
 #include "esp.hpp"
 
+bool debugStuff = true;
+
 namespace GameTab {
 	void Render() {
 		if (ImGui::BeginTabItem("Game")) {
@@ -106,7 +108,7 @@ namespace GameTab {
 			}
 
 			// debug stuff
-			if ((IsInGame() || IsInLobby())) {
+			if (debugStuff && (IsInGame() || IsInLobby())) {
 				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
 				ImGui::Separator();
 				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
@@ -136,7 +138,6 @@ namespace GameTab {
 				ImGui::Text("Mouse Input: %s", smouse);
 				ImGui::Text("Screen to World Adjusted Mouse Input: %s", mousep);
 			}
-
 
 			if ((IsInGame() || IsInLobby()) && Game::pGameOptionsData != NULL)
 			{
