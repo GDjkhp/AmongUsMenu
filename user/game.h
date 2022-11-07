@@ -36,5 +36,5 @@ namespace Game {
 	//extern STEAMUSERSTATS_SETACHIEVEMENT* SteamUserStats_SetAchievement;
 	//extern STEAMUSERSTATS_STORESTATS* SteamUserStats_StoreStats;
 
-	extern void scanGameFunctions();*/
+	extern void scanGameFunctions();
 }
