@@ -112,7 +112,6 @@
     </ClCompile>
     <ClCompile Include="hooks\_hooks.cpp" />
     <ClCompile Include="user\logger.cpp" />
-    <ClCompile Include="user\profiler.cpp" />
     <ClCompile Include="user\utility.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Version|Win32'">NotUsing</PrecompiledHeader>
@@ -232,7 +231,6 @@
     <ClInclude Include="includes\detours\detours.h" />
     <ClInclude Include="framework\pch-il2cpp.h" />
     <ClInclude Include="user\logger.h" />
-    <ClInclude Include="user\profiler.h" />
     <ClInclude Include="user\utility.h" />
     <ClInclude Include="framework\il2cpp-appdata.h" />
     <ClInclude Include="appdata\il2cpp-types.h" />

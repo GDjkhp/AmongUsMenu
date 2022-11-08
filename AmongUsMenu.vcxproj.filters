@@ -61,9 +61,6 @@
     <ClCompile Include="user\logger.cpp">
       <Filter>user</Filter>
     </ClCompile>
-    <ClCompile Include="user\profiler.cpp">
-      <Filter>user</Filter>
-    </ClCompile>
     <ClCompile Include="hooks\SaveManager.cpp">
       <Filter>hooks</Filter>
     </ClCompile>
@@ -148,9 +145,6 @@
       <Filter>hooks</Filter>
     </ClInclude>
     <ClInclude Include="user\logger.h">
-      <Filter>user</Filter>
-    </ClInclude>
-    <ClInclude Include="user\profiler.h">
       <Filter>user</Filter>
     </ClInclude>
   </ItemGroup>
