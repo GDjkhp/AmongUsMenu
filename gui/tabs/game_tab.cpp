@@ -8,7 +8,7 @@
 #include <DirectX.h>
 #include "esp.hpp"
 
-bool debugStuff = true;
+bool debugStuff = false;
 
 namespace GameTab {
 	void Render() {
