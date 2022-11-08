@@ -37,13 +37,6 @@ std::string GetCRC32(std::filesystem::path filePath) {
 bool GameVersionCheck() {
 	auto modulePath = getModulePath(NULL);
 	auto gameAssembly = modulePath.parent_path() / "GameAssembly.dll";
-	auto steamApi = modulePath.parent_path() / "Among Us_Data" / "Plugins" / "x86" / "steam_api.dll";
-
-	if (!IsWindows10OrGreater()) {
-		Log.Error("Version of windows not supported exiting!");
-		MessageBox(NULL, L"This version of Windows is not supported!", L"AmongUsMenu", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
-		return false;
-	}
 
 	if (!std::filesystem::exists(gameAssembly)) {
 		Log.Error("GameAssembly.dll was not found");
@@ -110,17 +103,17 @@ void Run(LPVOID lpParam) {
 	output_class_methods(klass);
 	*/
 #endif
-	GAME_STATIC_POINTER(Game::pAmongUsClient, app::AmongUsClient, Instance);
+	/*GAME_STATIC_POINTER(Game::pAmongUsClient, app::AmongUsClient, Instance);
 	GAME_STATIC_POINTER(Game::pGameData, app::GameData, Instance);
 	GAME_STATIC_POINTER(Game::pGameOptionsData, app::PlayerControl, GameOptions);
 	GAME_STATIC_POINTER(Game::pAllPlayerControls, app::PlayerControl, AllPlayerControls);
 	GAME_STATIC_POINTER(Game::pLocalPlayer, app::PlayerControl, LocalPlayer);
 	GAME_STATIC_POINTER(Game::pShipStatus, app::ShipStatus, Instance);
-	GAME_STATIC_POINTER(Game::pLobbyBehaviour, app::LobbyBehaviour, Instance);
+	GAME_STATIC_POINTER(Game::pLobbyBehaviour, app::LobbyBehaviour, Instance);*/
 	//GAME_STATIC_POINTER(Game::pRoleManager, app::DestroyableSingleton_1_RoleManager_, _instance);
 	State.userName = GetPlayerName();
 
-	Game::scanGameFunctions();
+	//Game::scanGameFunctions();
 	DetourInitilization();
 #if _DEBUG
 	managedThreadAttached.detach();
