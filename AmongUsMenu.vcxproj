@@ -19,38 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="hooks\AccountManager.cpp" />
-    <ClCompile Include="hooks\AirshipStatus.cpp" />
-    <ClCompile Include="hooks\Camera.cpp" />
-    <ClCompile Include="hooks\DirectX.cpp" />
-    <ClCompile Include="hooks\Dleks.cpp" />
-    <ClCompile Include="hooks\EOSManager.cpp" />
-    <ClCompile Include="hooks\GameOptionsData.cpp" />
-    <ClCompile Include="hooks\HudManager.cpp" />
-    <ClCompile Include="hooks\InnerNetClient.cpp" />
-    <ClCompile Include="hooks\LobbyBehaviour.cpp" />
-    <ClCompile Include="hooks\NoShadowBehaviour.cpp" />
-    <ClCompile Include="hooks\PlainDoor.cpp" />
-    <ClCompile Include="hooks\PlayerPhysics.cpp" />
-    <ClCompile Include="hooks\PlayerStorageManager.cpp" />
-    <ClCompile Include="hooks\PolusShipStatus.cpp" />
-    <ClCompile Include="hooks\RoleManager.cpp" />
     <ClCompile Include="hooks\SaveManager.cpp" />
-    <ClCompile Include="hooks\UnityDebug.cpp" />
-    <ClCompile Include="user\keybinds.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Version|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug_Version|Win32'">
-      </PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeaderFile>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_Version|Win32'">NotUsing</PrecompiledHeader>
-      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_Version|Win32'">
-      </PrecompiledHeaderFile>
-    </ClCompile>
     <ClCompile Include="includes\crc32.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Version|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug_Version|Win32'">
@@ -141,19 +110,9 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_Version|Win32'">
       </PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="hooks\Chat.cpp" />
-    <ClCompile Include="hooks\Doors.cpp" />
-    <ClCompile Include="hooks\KeyboardJoystick.cpp" />
-    <ClCompile Include="hooks\MeetingHud.cpp" />
-    <ClCompile Include="hooks\PlayerControl.cpp" />
-    <ClCompile Include="hooks\SceneManager.cpp" />
-    <ClCompile Include="hooks\ShipStatus.cpp" />
-    <ClCompile Include="hooks\StatsManager.cpp" />
-    <ClCompile Include="hooks\Vent.cpp" />
     <ClCompile Include="hooks\_hooks.cpp" />
     <ClCompile Include="user\logger.cpp" />
     <ClCompile Include="user\profiler.cpp" />
-    <ClCompile Include="user\resources.cpp" />
     <ClCompile Include="user\utility.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug_Version|Win32'">NotUsing</PrecompiledHeader>
@@ -241,12 +200,10 @@
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release_Version|Win32'">
       </PrecompiledHeaderFile>
     </ClCompile>
-    <ClCompile Include="user\game.cpp" />
     <ClCompile Include="user\main.cpp">
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)framework;$(ProjectDir)imgui;$(ProjectDir)Detours;$(ProjectDir)appdata;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release_Version|Win32'">$(ProjectDir)framework;$(ProjectDir)imgui;$(ProjectDir)Detours;$(ProjectDir)appdata;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
-    <ClCompile Include="user\state.cpp" />
     <ClCompile Include="framework\version.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -269,19 +226,13 @@
     <ClInclude Include="appdata\il2cpp-classes.h" />
     <ClInclude Include="appdata\il2cpp-functions.h" />
     <ClInclude Include="appdata\il2cpp-translations.h" />
-    <ClInclude Include="hooks\DirectX.h" />
-    <ClInclude Include="hooks\RoleManager.hpp" />
-    <ClInclude Include="hooks\SignatureScan.hpp" />
     <ClInclude Include="hooks\_hooks.h" />
     <ClInclude Include="includes\crc32.h" />
     <ClInclude Include="includes\directx11.h" />
     <ClInclude Include="includes\detours\detours.h" />
     <ClInclude Include="framework\pch-il2cpp.h" />
-    <ClInclude Include="user\achievements.hpp" />
-    <ClInclude Include="user\keybinds.h" />
     <ClInclude Include="user\logger.h" />
     <ClInclude Include="user\profiler.h" />
-    <ClInclude Include="user\resources.h" />
     <ClInclude Include="user\utility.h" />
     <ClInclude Include="framework\il2cpp-appdata.h" />
     <ClInclude Include="appdata\il2cpp-types.h" />
@@ -297,9 +248,7 @@
     <ClInclude Include="includes\imgui\imstb_textedit.h" />
     <ClInclude Include="includes\imgui\imstb_truetype.h" />
     <ClInclude Include="includes\json.hpp" />
-    <ClInclude Include="user\game.h" />
     <ClInclude Include="user\main.h" />
-    <ClInclude Include="user\state.hpp" />
     <ClInclude Include="framework\version.h" />
   </ItemGroup>
   <ItemGroup>

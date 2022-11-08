@@ -19,51 +19,6 @@
     <ClCompile Include="hooks\_hooks.cpp">
       <Filter>hooks</Filter>
     </ClCompile>
-    <ClCompile Include="hooks\DirectX.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\Chat.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\Dleks.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\Doors.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\GameOptionsData.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\HudManager.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\InnerNetClient.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\KeyboardJoystick.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\LobbyBehaviour.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\MeetingHud.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\PlayerControl.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\SceneManager.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\ShipStatus.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\StatsManager.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\Vent.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
     <ClCompile Include="includes\crc32.cpp">
       <Filter>includes</Filter>
     </ClCompile>
@@ -94,16 +49,7 @@
     <ClCompile Include="includes\detours\modules.cpp">
       <Filter>includes\detours</Filter>
     </ClCompile>
-    <ClCompile Include="user\game.cpp">
-      <Filter>user</Filter>
-    </ClCompile>
     <ClCompile Include="user\main.cpp">
-      <Filter>user</Filter>
-    </ClCompile>
-    <ClCompile Include="user\resources.cpp">
-      <Filter>user</Filter>
-    </ClCompile>
-    <ClCompile Include="user\state.cpp">
       <Filter>user</Filter>
     </ClCompile>
     <ClCompile Include="user\utility.cpp">
@@ -112,52 +58,13 @@
     <ClCompile Include="framework\pch-il2cpp.cpp">
       <Filter>framework</Filter>
     </ClCompile>
-    <ClCompile Include="user\keybinds.cpp">
-      <Filter>user</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\PolusShipStatus.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\NoShadowBehaviour.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\Camera.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\AirshipStatus.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\PlainDoor.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
     <ClCompile Include="user\logger.cpp">
       <Filter>user</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\UnityDebug.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\EOSManager.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClInclude Include="hooks\RoleManager.hpp">
-      <Filter>hooks</Filter>
-    </ClInclude>
-    <ClCompile Include="hooks\RoleManager.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\PlayerPhysics.cpp">
-      <Filter>hooks</Filter>
     </ClCompile>
     <ClCompile Include="user\profiler.cpp">
       <Filter>user</Filter>
     </ClCompile>
     <ClCompile Include="hooks\SaveManager.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\AccountManager.cpp">
-      <Filter>hooks</Filter>
-    </ClCompile>
-    <ClCompile Include="hooks\PlayerStorageManager.cpp">
       <Filter>hooks</Filter>
     </ClCompile>
   </ItemGroup>
@@ -188,9 +95,6 @@
     </ClInclude>
     <ClInclude Include="framework\version.h">
       <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="hooks\DirectX.h">
-      <Filter>hooks</Filter>
     </ClInclude>
     <ClInclude Include="includes\crc32.h">
       <Filter>includes</Filter>
@@ -234,34 +138,16 @@
     <ClInclude Include="user\main.h">
       <Filter>user</Filter>
     </ClInclude>
-    <ClInclude Include="user\resources.h">
-      <Filter>user</Filter>
-    </ClInclude>
-    <ClInclude Include="user\state.hpp">
-      <Filter>user</Filter>
-    </ClInclude>
     <ClInclude Include="user\utility.h">
       <Filter>user</Filter>
     </ClInclude>
     <ClInclude Include="framework\pch-il2cpp.h">
       <Filter>framework</Filter>
     </ClInclude>
-    <ClInclude Include="user\game.h">
-      <Filter>user</Filter>
-    </ClInclude>
     <ClInclude Include="hooks\_hooks.h">
       <Filter>hooks</Filter>
     </ClInclude>
-    <ClInclude Include="user\keybinds.h">
-      <Filter>user</Filter>
-    </ClInclude>
-    <ClInclude Include="hooks\SignatureScan.hpp">
-      <Filter>hooks</Filter>
-    </ClInclude>
     <ClInclude Include="user\logger.h">
-      <Filter>user</Filter>
-    </ClInclude>
-    <ClInclude Include="user\achievements.hpp">
       <Filter>user</Filter>
     </ClInclude>
     <ClInclude Include="user\profiler.h">
