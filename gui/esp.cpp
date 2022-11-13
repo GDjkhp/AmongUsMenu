@@ -153,7 +153,9 @@ void Esp::Render()
 					ImVec2 position2 = { it.Position.x, it.Position.y + 30.0f * State.dpiScale };
 
 					// infamous trash codes
-					float minX = 40.0f, minY = 0.0f, maxX = 1320.0f, maxY = 730.0f;
+					float minX = 40.0f, minY = 0.0f, 
+						maxX = DirectX::GetWindowSize().x - 46.0f, // 1320
+						maxY = DirectX::GetWindowSize().y - 38.0f; // 730
 
 					if (it.Position.x < minX) {
 						if (it.Position.y < minY) {
