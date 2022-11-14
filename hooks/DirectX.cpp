@@ -356,22 +356,6 @@ HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags
 
 			Esp::Render();
 
-            // TODO: teleport test
-            if (ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
-                ImVec2 mouse = ImGui::GetMousePos();
-
-                Vector2 target = {
-                    (mouse.x - DirectX::GetWindowSize().x / 2) + DirectX::GetWindowSize().x / 2,
-                    ((mouse.y - DirectX::GetWindowSize().y / 2) - DirectX::GetWindowSize().y / 2) * -1.0f
-                };
-
-                target = {
-                    ScreenToWorld(target).x, ScreenToWorld(target).y
-                };
-
-                State.rpcQueue.push(new RpcSnapTo(target));
-            }
-
 			s_Cache.Window->DrawList->PushClipRectFullScreen();
 
 			ImGui::PopStyleColor();
@@ -388,18 +372,6 @@ HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags
     if (CanDrawReplay())
     {
         ImGuiRenderer::Submit([]() { Replay::Render(); });
-    }
-
-    // TODO: teleport test
-    if (State.Teleport && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
-        ImVec2 mouse = ImGui::GetMousePos();
-
-        Vector2 target = {
-            (mouse.x - DirectX::GetWindowSize().x / 2) + DirectX::GetWindowSize().x / 2,
-            ((mouse.y - DirectX::GetWindowSize().y / 2) - DirectX::GetWindowSize().y / 2) * -1.0f
-        };
-
-        State.rpcQueue.push(new RpcSnapTo(ScreenToWorld(target)));
     }
 
     // Render in a separate thread
