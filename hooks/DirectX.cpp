@@ -361,8 +361,8 @@ HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags
                 ImVec2 mouse = ImGui::GetMousePos();
 
                 Vector2 target = {
-                    mouse.x - DirectX::GetWindowSize().x / 2,
-                    (mouse.y - DirectX::GetWindowSize().y / 2) * -1.0f
+                    (mouse.x - DirectX::GetWindowSize().x / 2) + DirectX::GetWindowSize().x / 2,
+                    ((mouse.y - DirectX::GetWindowSize().y / 2) - DirectX::GetWindowSize().y / 2) * -1.0f
                 };
 
                 target = {
