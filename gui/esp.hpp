@@ -66,10 +66,10 @@ static ImVec2 ScreenToWorld(Vector2 pos)
 	float view = GetScaleFromValue(180.0f);
 	const ImVec2 winsize = DirectX::GetWindowSize();
 
-	// SLAP SOME CODE HERE
-	ImVec2 value;
-	value.x = cameraPosition.x + ((pos.x / winsize.x) * 10.0f);
-	value.y = cameraPosition.y + ((pos.y / winsize.y) * 6.0f);
+	// use screen to world point
+	Vector3 vec3 = { pos.x, pos.y, 0 };
+	vec3 = Camera_ScreenToWorldPoint(mainCamera, vec3, nullptr);
+	ImVec2 value = { vec3.x, vec3.y };
 
 	return value;
 }
