@@ -71,3 +71,7 @@ void dAccountManager_UpdateKidAccountDisplay(AccountManager* __this, MethodInfo*
 void dPlayerStorageManager_OnReadPlayerPrefsComplete(PlayerStorageManager* __this, void* data, MethodInfo* method);
 bool dPlayerPurchasesData_GetPurchase(PlayerPurchasesData* __this, String* itemKey, String* bundleKey, MethodInfo* method);
 void dGameOptionsManager_set_CurrentGameOptions(GameOptionsManager* __this, IGameOptions* value, MethodInfo* method);
+
+// custom stuff
+void dExileController_ReEnableGameplay(void* __this, MethodInfo* method);
+void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method);

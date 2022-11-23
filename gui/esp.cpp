@@ -146,7 +146,14 @@ void Esp::Render()
 				/////////////////////////////////
 				//// Distance ///////////////////
 				/////////////////////////////////
-				if (State.ShowEsp_Distance)
+
+				float killTimer = -1.f;
+				if (auto role = player.get_PlayerData()->fields.Role;
+					role->fields.CanUseKillButton && !player.get_PlayerData()->fields.IsDead) {
+					killTimer = player.get_PlayerControl()->fields.killTimer;
+				}
+
+				if (State.ShowEsp_Distance || killTimer >= 0.f)
 				{
 					// logic and calculation
 					ImVec2 position = { it.Position.x, it.Position.y + 15.0f * State.dpiScale };
@@ -204,16 +211,30 @@ void Esp::Render()
 					// strings
 					char distance[32];
 					sprintf_s(distance, "[%.0fm]", it.Distance);
+					
+					std::string lol = it.Name;
+					char* player = lol.data();
 
 					//std::string lol2 = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
-					std::string lol = it.Name;
-
-					char* player = lol.data();
 					//char* pl = lol2.data();
+
+					// kill cd code
+					std::string label;
+					if (State.ShowEsp_Distance) {
+						char distance[32] = { 0 };
+						sprintf_s(distance, "[%.0fm]", it.Distance);
+						label = distance;
+					}
+					if (killTimer >= 0.f) {
+						char distance[32] = { 0 };
+						sprintf_s(distance, "[Kill CD:%.1fs]", killTimer);
+						label += distance;
+					}
+					char* killcd = label.data();
 
 					// render info
 					RenderText(player, position, it.ColorId);
-					RenderText(distance, position2, it.Color); // change this to player name + color + kill cd
+					RenderText(killcd, position2, it.Color);
 				}
 				/////////////////////////////////
 				//// Tracers ////////////////////
