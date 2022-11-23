@@ -8,6 +8,7 @@
 #include "profiler.h"
 #include <iostream>
 #include <optional>
+#include <logger.h>
 
 void dPlayerControl_CompleteTask(PlayerControl* __this, uint32_t idx, MethodInfo* method) {
 	std::optional<TaskTypes__Enum> taskType = std::nullopt;
@@ -41,7 +42,7 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 	if (__this == *Game::pLocalPlayer) {
 		if (State.rpcCooldown == 0) {
 			MessageWriter* rpcMessage = InnerNetClient_StartRpc((InnerNetClient*)(*Game::pAmongUsClient), 
-				__this->fields._.NetId, 101, (SendOption__Enum)1, NULL);
+				__this->fields._.NetId, 101, (SendOption__Enum)1, NULL); // 42069
 			MessageWriter_WriteByte(rpcMessage, __this->fields.PlayerId, NULL);
 			MessageWriter_EndMessage(rpcMessage, NULL);
 			State.rpcCooldown = 15;
@@ -162,6 +163,14 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 					|| app::PlayerControl_get_IsKillTimerEnabled(__this, nullptr)) {
 					__this->fields.killTimer = (std::max)(__this->fields.killTimer - app::Time_get_fixedDeltaTime(nullptr), 0.f);
 				}
+			}
+		}
+
+		else {
+			// ESP: Update kill cooldowns for all imposters except me.
+			if (auto role = playerData->fields.Role;
+				role->fields.CanUseKillButton && !playerData->fields.IsDead) {
+				__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
 			}
 		}
 
@@ -434,5 +443,21 @@ void dPlayerControl_TurnOnProtection(PlayerControl* __this, bool visible, int32_
 	std::pair pair { colorId, app::Time_get_time(nullptr) };
 	synchronized(State.protectMutex) {
 		State.protectMonitor[__this->fields.PlayerId] = pair;
+	}
+}
+
+void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method) {
+	app::PlayerControl_AdjustLighting(__this, method);
+
+	// ESP: Initialize kill cooldowns for all imposters except me.
+	for (auto pc : GetAllPlayerControl()) {
+		if (auto player = PlayerSelection(pc).validate();
+			player.has_value() && !player.is_LocalPlayer() && !player.is_Disconnected()) {
+			if (auto role = player.get_PlayerData()->fields.Role;
+				role->fields.CanUseKillButton && !player.get_PlayerData()->fields.IsDead) {
+				pc->fields.killTimer = 10.f;
+				STREAM_DEBUG("Player " << ToString(pc) << " KillTimer " << pc->fields.killTimer);
+			}
+		}
 	}
 }
