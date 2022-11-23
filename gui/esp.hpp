@@ -50,28 +50,15 @@ static ImVec2 WorldToScreen(Vector2 pos)
 	return value;
 }
 
-static ImVec2 ScreenToWorld(Vector2 pos)
+static Vector2 ScreenToWorld(Vector2 pos)
 {
 	auto mainCamera = Camera_get_main(nullptr);
-	Transform* cameraTransform = Component_get_transform(reinterpret_cast<Component_1*>(mainCamera), nullptr);
-	Vector3 cameraPosition = Transform_get_position(cameraTransform, nullptr);
-	Vector2 localPos = PlayerControl_GetTruePosition(*Game::pLocalPlayer, nullptr);
-
-	// Calculation to compensate for Camera movement
-	cameraPosition.x = localPos.x - (localPos.x - cameraPosition.x);
-	cameraPosition.y = localPos.y - (localPos.y - cameraPosition.y);
-
-	// The value 180 is specific for 1920x1080 so we need to scale it for other resolutions.
-	// Scaling from the x axis would probably also work but now we scale from the y axis.
-	float view = GetScaleFromValue(180.0f);
-	const ImVec2 winsize = DirectX::GetWindowSize();
 
 	// use screen to world point
 	Vector3 vec3 = { pos.x, pos.y, 0 };
 	vec3 = Camera_ScreenToWorldPoint(mainCamera, vec3, nullptr);
-	ImVec2 value = { vec3.x, vec3.y };
 
-	return value;
+	return { vec3.x, vec3.y };
 }
 
 struct EspPlayerData

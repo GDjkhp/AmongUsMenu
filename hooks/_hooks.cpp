@@ -162,6 +162,10 @@ void DetourInitilization() {
 	HOOKFUNC(PlayerStorageManager_OnReadPlayerPrefsComplete);
 	HOOKFUNC(EOSManager_UpdatePermissionKeys);
 
+	// custom stuff
+	HOOKFUNC(ExileController_ReEnableGameplay);
+	HOOKFUNC(PlayerControl_AdjustLighting);
+
 
 	if (!HookFunction(&(PVOID&)oPresent, dPresent, "D3D_PRESENT_FUNCTION")) return;
 

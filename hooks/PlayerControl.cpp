@@ -8,6 +8,7 @@
 #include "profiler.h"
 #include <iostream>
 #include <optional>
+#include <logger.h>
 
 void dPlayerControl_CompleteTask(PlayerControl* __this, uint32_t idx, MethodInfo* method) {
 	std::optional<TaskTypes__Enum> taskType = std::nullopt;
@@ -29,7 +30,7 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 	if (__this == *Game::pLocalPlayer) {
 		if (State.rpcCooldown == 0) {
 			MessageWriter* rpcMessage = InnerNetClient_StartRpc((InnerNetClient*)(*Game::pAmongUsClient), 
-				__this->fields._.NetId, 101, (SendOption__Enum)1, NULL);
+				__this->fields._.NetId, 101, (SendOption__Enum)1, NULL); // 42069
 			MessageWriter_WriteByte(rpcMessage, __this->fields.PlayerId, NULL);
 			MessageWriter_EndMessage(rpcMessage, NULL);
 			State.rpcCooldown = 15;
@@ -97,6 +98,14 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 				Vector3 cameraVector3 = Transform_get_position(cameraTransform, NULL);
 				if(State.EnableZoom && !State.InMeeting && State.CameraHeight > 3.0f)
 				Transform_set_position(cameraTransform, { cameraVector3.x, cameraVector3.y, 100 }, NULL);
+			}
+		}
+
+		else {
+			// ESP: Update kill cooldowns for all imposters except me.
+			if (auto role = playerData->fields.Role;
+				role->fields.CanUseKillButton && !playerData->fields.IsDead) {
+				__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
 			}
 		}
 
@@ -265,6 +274,14 @@ void dPlayerControl_MurderPlayer(PlayerControl* __this, PlayerControl* target, M
 		State.liveReplayEvents.emplace_back(std::make_unique<KillEvent>(GetEventPlayerControl(__this).value(), GetEventPlayerControl(target).value(), PlayerControl_GetTruePosition(__this, NULL), PlayerControl_GetTruePosition(target, NULL)));
 		State.replayDeathTimePerPlayer[target->fields.PlayerId] = std::chrono::system_clock::now();
 	}
+	// ESP: Reset kill cooldowns for all imposters except me.
+	if (__this->fields._.OwnerId != (*Game::pAmongUsClient)->fields._.ClientId) {
+		if (!target || target->fields.protectedByGuardian == false)
+			__this->fields.killTimer = (std::max)((*Game::pGameOptionsData)->fields._.killCooldown, 0.f);
+		else
+			__this->fields.killTimer = (std::max)((*Game::pGameOptionsData)->fields._.killCooldown * 0.5f, 0.f);
+		STREAM_DEBUG("Player " << ToString(__this) << " KillTimer " << __this->fields.killTimer);
+	}
 	do {
 		if (!State.ShowProtections) break;
 		if (!target || target->fields.protectedByGuardian == false)
@@ -365,5 +382,21 @@ void dPlayerControl_TurnOnProtection(PlayerControl* __this, bool visible, int32_
 	std::pair pair { colorId, app::Time_get_time(nullptr) };
 	synchronized(State.protectMutex) {
 		State.protectMonitor[__this->fields.PlayerId] = pair;
+	}
+}
+
+void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method) {
+	app::PlayerControl_AdjustLighting(__this, method);
+
+	// ESP: Initialize kill cooldowns for all imposters except me.
+	for (auto pc : GetAllPlayerControl()) {
+		if (auto player = PlayerSelection(pc).validate();
+			player.has_value() && !player.is_LocalPlayer() && !player.is_Disconnected()) {
+			if (auto role = player.get_PlayerData()->fields.Role;
+				role->fields.CanUseKillButton && !player.get_PlayerData()->fields.IsDead) {
+				pc->fields.killTimer = 10.f;
+				STREAM_DEBUG("Player " << ToString(pc) << " KillTimer " << pc->fields.killTimer);
+			}
+		}
 	}
 }

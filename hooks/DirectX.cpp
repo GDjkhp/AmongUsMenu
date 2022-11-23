@@ -383,11 +383,7 @@ HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags
             ((mouse.y - DirectX::GetWindowSize().y / 2) - DirectX::GetWindowSize().y / 2) * -1.0f
         };
 
-        target = {
-            ScreenToWorld(target).x, ScreenToWorld(target).y
-        };
-
-        State.rpcQueue.push(new RpcSnapTo(target));
+        State.rpcQueue.push(new RpcSnapTo(ScreenToWorld(target)));
     }
 
     // Render in a separate thread

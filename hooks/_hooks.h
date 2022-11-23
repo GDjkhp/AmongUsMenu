@@ -75,3 +75,7 @@ void dAmongUsClient_OnGameEnd(AmongUsClient* __this, Object* endGameResult, Meth
 void dAccountManager_UpdateKidAccountDisplay(AccountManager* __this, MethodInfo* method);
 void dPlayerStorageManager_OnReadPlayerPrefsComplete(PlayerStorageManager* __this, void* data, MethodInfo* method);
 bool dPlayerPurchasesData_GetPurchase(PlayerPurchasesData* __this, String* itemKey, String* bundleKey, MethodInfo* method);
+
+// custom stuff
+void dExileController_ReEnableGameplay(void* __this, MethodInfo* method);
+void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method);
