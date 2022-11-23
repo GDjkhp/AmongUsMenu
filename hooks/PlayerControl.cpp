@@ -174,6 +174,14 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 			}
 		}
 
+		else {
+			// ESP: Update kill cooldowns for all imposters except me.
+			if (auto role = playerData->fields.Role;
+				role->fields.CanUseKillButton && !playerData->fields.IsDead) {
+				__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
+			}
+		}
+
 		if ((__this == *Game::pLocalPlayer) && (State.originalColor == Game::NoColorId)) {
 			SaveOriginalAppearance();
 		}

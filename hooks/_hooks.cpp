@@ -161,6 +161,10 @@ void DetourInitilization() {
 	HOOKFUNC(ExileController_ReEnableGameplay);
 	HOOKFUNC(PlayerControl_AdjustLighting);
 
+	// custom stuff
+	HOOKFUNC(ExileController_ReEnableGameplay);
+	HOOKFUNC(PlayerControl_AdjustLighting);
+
 
 	if (!HookFunction(&(PVOID&)oPresent, dPresent, "D3D_PRESENT_FUNCTION")) return;
 
