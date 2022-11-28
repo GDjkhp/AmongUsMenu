@@ -220,21 +220,25 @@ void Esp::Render()
 
 					// kill cd code
 					std::string label;
+					ImVec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
+
 					if (State.ShowEsp_Distance) {
 						char distance[32] = { 0 };
 						sprintf_s(distance, "[%.0fm]", it.Distance);
 						label = distance;
+						Color = it.Color;
 					}
 					if (killTimer >= 0.f) {
 						char distance[32] = { 0 };
 						sprintf_s(distance, "[Kill CD:%.1fs]", killTimer);
-						label += distance;
+						label = distance;
+						Color = { 1.0f, 1.0f, 1.0f, 1.0f };
 					}
 					char* killcd = label.data();
 
 					// render info
 					RenderText(player, position, it.ColorId);
-					RenderText(killcd, position2, it.Color);
+					RenderText(killcd, position2, Color);
 				}
 				/////////////////////////////////
 				//// Tracers ////////////////////
