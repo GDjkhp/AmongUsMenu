@@ -161,6 +161,7 @@ void Settings::Save() {
 
             // custom json settings
             {"LockWindows", this->LockWindows},
+            {"Teleport", this->Teleport},
         };
 
         std::ofstream outSettings(settingsPath);
