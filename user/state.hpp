@@ -114,6 +114,8 @@ public:
 
     bool LockWindows = false;
 
+    bool Teleport = false;
+
     // end custom settings
 
     // NOTE:

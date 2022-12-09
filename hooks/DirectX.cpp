@@ -375,7 +375,7 @@ HRESULT __stdcall dPresent(IDXGISwapChain* __this, UINT SyncInterval, UINT Flags
     }
 
     // TODO: teleport test
-    if (ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
+    if (State.Teleport && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
         ImVec2 mouse = ImGui::GetMousePos();
 
         Vector2 target = {
