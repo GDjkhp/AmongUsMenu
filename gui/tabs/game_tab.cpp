@@ -139,7 +139,7 @@ namespace GameTab {
 				ImGui::Text("Screen to World Adjusted Mouse Input: %s", mousep);
 			}
 
-			if ((IsInGame() || IsInLobby()) && Game::pGameOptionsData != NULL)
+			if ((IsInGame() || IsInLobby()))
 			{
 				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
 				ImGui::Separator();
@@ -151,11 +151,12 @@ namespace GameTab {
 					auto allPlayers = GetAllPlayerControl();
 					RoleRates roleRates = RoleRates(options, (int)allPlayers.size());
 					// this should be all the major ones. if people want more they're simple enough to add.
-					ImGui::Text("Visual Tasks: %s", (options->fields.VisualTasks == true ? "on" : "off"));
-					ImGui::Text("Taskbar Update Mode: %s", (options->fields.TaskBarMode == app::TaskBarMode__Enum::Normal ? "Normal" : "MeetingOnly"));
-					ImGui::Text("Anonymous Votes: %s", (options->fields.AnonymousVotes == true ? "on" : "off"));
-					ImGui::Text("Confirm Impostor: %s", (options->fields.ConfirmImpostor == true ? "on" : "off"));
-					ImGui::Text("Kill CD: %.2f", options->fields._.killCooldown);
+					ImGui::Text("Visual Tasks: %s", (options.GetBool(app::BoolOptionNames__Enum::VisualTasks) ? "on" : "off"));
+					ImGui::Text("Taskbar Update Mode: %s", (options.GetInt(app::Int32OptionNames__Enum::TaskBarMode)
+						== (int)app::TaskBarMode__Enum::Normal ? "Normal" : "MeetingOnly"));
+					ImGui::Text("Anonymous Votes: %s", (options.GetBool(app::BoolOptionNames__Enum::AnonymousVotes) ? "on" : "off"));
+					ImGui::Text("Confirm Impostor: %s", (options.GetBool(app::BoolOptionNames__Enum::ConfirmImpostor) ? "on" : "off"));
+					ImGui::Text("Kill CD: %.2f", options.GetKillCooldown());
 
 					ImGui::Dummy(ImVec2(3, 3) * State.dpiScale);
 					ImGui::Separator();

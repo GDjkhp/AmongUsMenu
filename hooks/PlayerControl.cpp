@@ -344,6 +344,7 @@ void dPlayerControl_MurderPlayer(PlayerControl* __this, PlayerControl* target, M
 
 	// ESP: Reset Kill Cooldown
 	if (__this->fields._.OwnerId != (*Game::pAmongUsClient)->fields._.ClientId) {
+		GameOptions options;
 		if (!target || target->fields.protectedByGuardian == false)
 			__this->fields.killTimer = (std::max)(GameOptions().GetKillCooldown(), 0.f);
 		else
