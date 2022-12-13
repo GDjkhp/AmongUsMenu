@@ -270,10 +270,11 @@ void dPlayerControl_MurderPlayer(PlayerControl* __this, PlayerControl* target, M
 	}
 	// ESP: Reset kill cooldowns for all imposters except me.
 	if (__this->fields._.OwnerId != (*Game::pAmongUsClient)->fields._.ClientId) {
+		GameOptions options;
 		if (!target || target->fields.protectedByGuardian == false)
-			__this->fields.killTimer = (std::max)((*Game::pGameOptionsData)->fields._.killCooldown, 0.f);
+			__this->fields.killTimer = (std::max)(options.GetFloat(app::FloatOptionNames__Enum::KillCooldown), 0.f);
 		else
-			__this->fields.killTimer = (std::max)((*Game::pGameOptionsData)->fields._.killCooldown * 0.5f, 0.f);
+			__this->fields.killTimer = (std::max)(options.GetFloat(app::FloatOptionNames__Enum::KillCooldown) * 0.5f, 0.f);
 		STREAM_DEBUG("Player " << ToString(__this) << " KillTimer " << __this->fields.killTimer);
 	}
 	do {
