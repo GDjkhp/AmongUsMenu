@@ -148,10 +148,10 @@ void Esp::Render()
 				/////////////////////////////////
 
 				float killTimer = -1.f;
-				if (auto role = player.get_PlayerData()->fields.Role;
+				/*if (auto role = player.get_PlayerData()->fields.Role;
 					role->fields.CanUseKillButton && !player.get_PlayerData()->fields.IsDead) {
 					killTimer = player.get_PlayerControl()->fields.killTimer;
-				}
+				}*/
 
 				if (State.ShowEsp_Distance || killTimer >= 0.f)
 				{

@@ -250,7 +250,7 @@ void dExileController_ReEnableGameplay(void* __this, MethodInfo* method) {
 	app::ExileController_ReEnableGameplay(__this, method);
 
 	// ESP: Reset kill cooldowns for all imposters except me.
-	for (auto pc : GetAllPlayerControl()) {
+	/*for (auto pc : GetAllPlayerControl()) {
 		if (auto player = PlayerSelection(pc).validate();
 			player.has_value() && !player.is_LocalPlayer() && !player.is_Disconnected()) {
 			if (auto role = player.get_PlayerData()->fields.Role;
@@ -260,5 +260,5 @@ void dExileController_ReEnableGameplay(void* __this, MethodInfo* method) {
 				STREAM_DEBUG("Player " << ToString(pc) << " KillTimer " << pc->fields.killTimer);
 			}
 		}
-	}
+	}*/
 }

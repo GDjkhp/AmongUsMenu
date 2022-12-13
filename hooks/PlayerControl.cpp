@@ -174,13 +174,13 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 			}
 		}
 
-		else {
-			// ESP: Update kill cooldowns for all imposters except me.
-			if (auto role = playerData->fields.Role;
-				role->fields.CanUseKillButton && !playerData->fields.IsDead) {
-				__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
-			}
-		}
+		//else {
+		//	// ESP: Update kill cooldowns for all imposters except me.
+		//	if (auto role = playerData->fields.Role;
+		//		role->fields.CanUseKillButton && !playerData->fields.IsDead) {
+		//		__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
+		//	}
+		//}
 
 		if ((__this == *Game::pLocalPlayer) && (State.originalColor == Game::NoColorId)) {
 			SaveOriginalAppearance();
@@ -459,7 +459,7 @@ void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method) {
 	app::PlayerControl_AdjustLighting(__this, method);
 
 	// ESP: Initialize kill cooldowns for all imposters except me.
-	for (auto pc : GetAllPlayerControl()) {
+	/*for (auto pc : GetAllPlayerControl()) {
 		if (auto player = PlayerSelection(pc).validate();
 			player.has_value() && !player.is_LocalPlayer() && !player.is_Disconnected()) {
 			if (auto role = player.get_PlayerData()->fields.Role;
@@ -468,5 +468,5 @@ void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method) {
 				STREAM_DEBUG("Player " << ToString(pc) << " KillTimer " << pc->fields.killTimer);
 			}
 		}
-	}
+	}*/
 }
