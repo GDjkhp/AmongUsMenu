@@ -101,13 +101,13 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 			}
 		}
 
-		else {
-			// ESP: Update kill cooldowns for all imposters except me.
-			if (auto role = playerData->fields.Role;
-				role->fields.CanUseKillButton && !playerData->fields.IsDead) {
-				__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
-			}
-		}
+		//else {
+		//	// ESP: Update kill cooldowns for all imposters except me.
+		//	if (auto role = playerData->fields.Role;
+		//		role->fields.CanUseKillButton && !playerData->fields.IsDead) {
+		//		__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
+		//	}
+		//}
 
 		if ((__this == *Game::pLocalPlayer) && (State.originalColor == Game::NoColorId)) {
 			SaveOriginalAppearance();
@@ -269,14 +269,14 @@ void dPlayerControl_MurderPlayer(PlayerControl* __this, PlayerControl* target, M
 		State.replayDeathTimePerPlayer[target->fields.PlayerId] = std::chrono::system_clock::now();
 	}
 	// ESP: Reset kill cooldowns for all imposters except me.
-	if (__this->fields._.OwnerId != (*Game::pAmongUsClient)->fields._.ClientId) {
+	/*if (__this->fields._.OwnerId != (*Game::pAmongUsClient)->fields._.ClientId) {
 		GameOptions options;
 		if (!target || target->fields.protectedByGuardian == false)
 			__this->fields.killTimer = (std::max)(options.GetFloat(app::FloatOptionNames__Enum::KillCooldown), 0.f);
 		else
 			__this->fields.killTimer = (std::max)(options.GetFloat(app::FloatOptionNames__Enum::KillCooldown) * 0.5f, 0.f);
 		STREAM_DEBUG("Player " << ToString(__this) << " KillTimer " << __this->fields.killTimer);
-	}
+	}*/
 	do {
 		if (!State.ShowProtections) break;
 		if (!target || target->fields.protectedByGuardian == false)
@@ -384,7 +384,7 @@ void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method) {
 	app::PlayerControl_AdjustLighting(__this, method);
 
 	// ESP: Initialize kill cooldowns for all imposters except me.
-	for (auto pc : GetAllPlayerControl()) {
+	/*for (auto pc : GetAllPlayerControl()) {
 		if (auto player = PlayerSelection(pc).validate();
 			player.has_value() && !player.is_LocalPlayer() && !player.is_Disconnected()) {
 			if (auto role = player.get_PlayerData()->fields.Role;
@@ -393,5 +393,5 @@ void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method) {
 				STREAM_DEBUG("Player " << ToString(pc) << " KillTimer " << pc->fields.killTimer);
 			}
 		}
-	}
+	}*/
 }
