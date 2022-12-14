@@ -95,6 +95,7 @@ public:
     bool ChatAlwaysActive = false;
     bool ChatActiveOriginalState = false;
     bool ReadGhostMessages = false;
+    bool RightClickTeleport = false;
 
     SystemTypes__Enum selectedDoor = SystemTypes__Enum::Hallway;
     std::vector<SystemTypes__Enum> mapDoors;
@@ -114,7 +115,6 @@ public:
     // start custom settings
 
     bool LockWindows = false;
-    bool Teleport = false;
 
     // end custom settings
 
