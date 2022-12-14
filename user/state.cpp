@@ -89,7 +89,6 @@ void Settings::Load() {
 
         // custom json settings
         JSON_TRYGET("LockWindows", this->LockWindows);
-        JSON_TRYGET("Teleport", this->Teleport);
     } catch (...) {
         Log.Info("Unable to load settings.json");
     }
@@ -164,7 +163,6 @@ void Settings::Save() {
 
             // custom json settings
             {"LockWindows", this->LockWindows},
-            {"Teleport", this->Teleport},
         };
 
         std::ofstream outSettings(settingsPath);
