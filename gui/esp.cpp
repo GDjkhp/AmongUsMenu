@@ -147,13 +147,7 @@ void Esp::Render()
 				//// Distance ///////////////////
 				/////////////////////////////////
 
-				float killTimer = -1.f;
-				/*if (auto role = player.get_PlayerData()->fields.Role;
-					role->fields.CanUseKillButton && !player.get_PlayerData()->fields.IsDead) {
-					killTimer = player.get_PlayerControl()->fields.killTimer;
-				}*/
-
-				if (State.ShowEsp_Distance || killTimer >= 0.f)
+				if (State.ShowEsp_Distance)
 				{
 					// logic and calculation
 					ImVec2 position = { it.Position.x, it.Position.y + 15.0f * State.dpiScale };
@@ -218,30 +212,21 @@ void Esp::Render()
 					//std::string lol2 = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
 					//char* pl = lol2.data();
 
-					//std::string lol2 = std::to_string(it.Position.x) + ", " + std::to_string(it.Position.y);
-					//char* pl = lol2.data();
-
-					// kill cd code
-					std::string label;
-					ImVec4 Color{ 1.0f, 1.0f, 1.0f, 1.0f };
-
-					if (State.ShowEsp_Distance) {
-						char distance[32] = { 0 };
-						sprintf_s(distance, "[%.0fm]", it.Distance);
-						label = distance;
-						Color = it.Color;
+					// kill cd update
+					if (const auto& player = it.playerData.validate();
+						State.ShowKillCD
+						&& !player.is_LocalPlayer()
+						&& !player.get_PlayerData()->fields.IsDead
+						&& player.get_PlayerData()->fields.Role
+						&& player.get_PlayerData()->fields.Role->fields.CanUseKillButton
+						) {
+						float killTimer = player.get_PlayerControl()->fields.killTimer;
+						sprintf_s(distance, "[%.1fs]", killTimer);
 					}
-					if (killTimer >= 0.f) {
-						char distance[32] = { 0 };
-						sprintf_s(distance, "[Kill CD:%.1fs]", killTimer);
-						label = distance;
-						Color = { 1.0f, 1.0f, 1.0f, 1.0f };
-					}
-					char* killcd = label.data();
 
 					// render info
 					RenderText(player, position, it.ColorId);
-					RenderText(killcd, position2, Color);
+					RenderText(distance, position2, it.Color);
 				}
 				/////////////////////////////////
 				//// Tracers ////////////////////
