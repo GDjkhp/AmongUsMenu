@@ -124,6 +124,9 @@ namespace SelfTab {
             if (ImGui::Checkbox("Right-click Teleport", &State.RightClickTeleport)) {
                 State.Save();
             }
+            if (ImGui::Checkbox("Right-click Teleport", &State.RightClickTeleport)) {
+                State.Save();
+            }
             ImGui::EndTabItem();
         }
     }
