@@ -39,9 +39,10 @@ void DetourInitilization() {
 	if (!d3d11.presentFunction) {
 		std::cout << "Unable to retrieve IDXGISwapChain::Present method" << std::endl;
 		return;
-	} else {
+	}
+	else {
 		// Attempting to hook the Steam overlay
-		/*do {
+		do {
 			if (oPresent)
 				break;
 			HMODULE hModule = GetModuleHandleA("GameOverlayRenderer.dll");
@@ -83,7 +84,7 @@ void DetourInitilization() {
 				return;
 			}
 			oPresent = d3d11.presentFunction;
-		} while (0);*/
+		} while (0);
 		if (!oPresent)
 			oPresent = d3d11.presentFunction;
 	}
@@ -156,22 +157,6 @@ void DetourInitilization() {
 	HOOKFUNC(GameOptionsManager_set_CurrentGameOptions);
 	HOOKFUNC(ExileController_ReEnableGameplay);
 	HOOKFUNC(SabotageSystemType_ForceSabTime);
-
-	// custom stuff
-	HOOKFUNC(ExileController_ReEnableGameplay);
-	HOOKFUNC(PlayerControl_AdjustLighting);
-
-	// custom stuff
-	HOOKFUNC(ExileController_ReEnableGameplay);
-	HOOKFUNC(PlayerControl_AdjustLighting);
-
-	// custom stuff
-	HOOKFUNC(ExileController_ReEnableGameplay);
-	HOOKFUNC(PlayerControl_AdjustLighting);
-
-	// custom stuff
-	HOOKFUNC(ExileController_ReEnableGameplay);
-	HOOKFUNC(PlayerControl_AdjustLighting);
 
 
 	if (!HookFunction(&(PVOID&)oPresent, dPresent, "D3D_PRESENT_FUNCTION")) return;

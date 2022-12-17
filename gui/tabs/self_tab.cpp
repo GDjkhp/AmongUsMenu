@@ -69,7 +69,7 @@ namespace SelfTab {
             if (ImGui::Checkbox("Reveal Votes", &State.RevealVotes)) {
                 State.Save();
             }
-            if (!IsInGame() && !IsInLobby() 
+            if (!IsInGame() && !IsInLobby()
                 || GameOptions().GetGameMode() != GameModes__Enum::Normal
                 || GameOptions().GetBool(app::BoolOptionNames__Enum::AnonymousVotes)) {
                 ImGui::SameLine(120.0f * State.dpiScale);
@@ -113,7 +113,8 @@ namespace SelfTab {
                                 app::GameObject_set_layer(app::Component_get_gameObject((Component_1*)(*Game::pLocalPlayer), NULL), app::LayerMask_NameToLayer(convert_to_string("Players"), NULL), NULL);
                         }
                     }
-                } else State.NoClip = false;
+                }
+                else State.NoClip = false;
             }
             ImGui::SameLine();
             HotKey(State.KeyBinds.Toggle_Noclip);
@@ -121,12 +122,7 @@ namespace SelfTab {
             if (ImGui::Checkbox("Right-click Teleport", &State.RightClickTeleport)) {
                 State.Save();
             }
-            if (ImGui::Checkbox("Right-click Teleport", &State.RightClickTeleport)) {
-                State.Save();
-            }
-            if (ImGui::Checkbox("Right-click Teleport", &State.RightClickTeleport)) {
-                State.Save();
-            }
+
             ImGui::EndTabItem();
         }
     }

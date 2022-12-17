@@ -85,7 +85,7 @@ static void Transform_RevealAnonymousVotes(app::Transform* transform, Game::Vote
 void dMeetingHud_PopulateResults(MeetingHud* __this, Il2CppArraySize* states, MethodInfo* method) {
 	// remove all votes before populating results
 	for (auto votedForArea : il2cpp::Array(__this->fields.playerStates)) {
-        if (!votedForArea) {
+		if (!votedForArea) {
 			// oops: game bug
 			continue;
 		}
@@ -151,8 +151,8 @@ void dMeetingHud_Update(MeetingHud* __this, MethodInfo* method) {
 				Color32&& roleColor = app::Color32_op_Implicit(GetRoleColor(playerData->fields.Role), NULL);
 
 				playerName = std::format("<color=#{:02x}{:02x}{:02x}{:02x}>{}",
-										 roleColor.r, roleColor.g, roleColor.b,
-										 roleColor.a, playerName);
+					roleColor.r, roleColor.g, roleColor.b,
+					roleColor.a, playerName);
 				if (IsColorBlindMode()) {
 					playerName += "\n ";
 				}
@@ -244,21 +244,4 @@ void dMeetingHud_Update(MeetingHud* __this, MethodInfo* method) {
 		}
 	}
 	app::MeetingHud_Update(__this, method);
-}
-
-void dExileController_ReEnableGameplay(void* __this, MethodInfo* method) {
-	app::ExileController_ReEnableGameplay(__this, method);
-
-	// ESP: Reset kill cooldowns for all imposters except me.
-	/*for (auto pc : GetAllPlayerControl()) {
-		if (auto player = PlayerSelection(pc).validate();
-			player.has_value() && !player.is_LocalPlayer() && !player.is_Disconnected()) {
-			if (auto role = player.get_PlayerData()->fields.Role;
-				role->fields.CanUseKillButton && !player.get_PlayerData()->fields.IsDead) {
-				GameOptions options;
-				pc->fields.killTimer = (std::max)(options.GetFloat(app::FloatOptionNames__Enum::KillCooldown), 0.f);
-				STREAM_DEBUG("Player " << ToString(pc) << " KillTimer " << pc->fields.killTimer);
-			}
-		}
-	}*/
 }

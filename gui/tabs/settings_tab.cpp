@@ -66,7 +66,6 @@ namespace SettingsTab {
 			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
 			ImGui::Separator();
 			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
-			if (ImGui::Button("No achievements :("))
 
 			if (Achievements::IsSupported()
 				&& ImGui::Button("Unlock all achievements"))

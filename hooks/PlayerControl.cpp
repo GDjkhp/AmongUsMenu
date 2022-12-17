@@ -8,7 +8,6 @@
 #include "profiler.h"
 #include <iostream>
 #include <optional>
-#include <logger.h>
 
 void dPlayerControl_CompleteTask(PlayerControl* __this, uint32_t idx, MethodInfo* method) {
 	std::optional<TaskTypes__Enum> taskType = std::nullopt;
@@ -41,8 +40,7 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 	dPlayerControl_fixedUpdateTimer = round(1.f / Time_get_fixedDeltaTime(nullptr));
 	if (__this == *Game::pLocalPlayer) {
 		if (State.rpcCooldown == 0) {
-			MessageWriter* rpcMessage = InnerNetClient_StartRpc((InnerNetClient*)(*Game::pAmongUsClient), 
-				__this->fields._.NetId, 101, (SendOption__Enum)1, NULL); // 42069
+			MessageWriter* rpcMessage = InnerNetClient_StartRpc((InnerNetClient*)(*Game::pAmongUsClient), __this->fields._.NetId, (uint8_t)42069, (SendOption__Enum)1, NULL);
 			MessageWriter_WriteByte(rpcMessage, __this->fields.PlayerId, NULL);
 			MessageWriter_EndMessage(rpcMessage, NULL);
 			State.rpcCooldown = 15;
@@ -74,8 +72,8 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 			float killTimer = __this->fields.killTimer;
 			Color32&& color = GetKillCooldownColor(killTimer);
 			playerName += std::format("\n<size=70%><color=#{:02x}{:02x}{:02x}{:02x}>Cooldown: {:.1f}s",
-									  color.r, color.g, color.b, color.a,
-									  killTimer);
+				color.r, color.g, color.b, color.a,
+				killTimer);
 		}
 		if (State.RevealRoles)
 		{
@@ -84,8 +82,8 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 			Color32&& roleColor = app::Color32_op_Implicit(GetRoleColor(playerData->fields.Role), NULL);
 
 			playerName = std::format("<color=#{:02x}{:02x}{:02x}{:02x}>{}",
-									 roleColor.r, roleColor.g, roleColor.b,
-									 roleColor.a, playerName);
+				roleColor.r, roleColor.g, roleColor.b,
+				roleColor.a, playerName);
 		}
 
 		String* playerNameStr = convert_to_string(playerName);
@@ -132,7 +130,7 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 
 			Transform* cameraTransform = Component_get_transform((Component_1*)mainCamera, NULL);
 			Vector3 cameraVector3 = Transform_get_position(cameraTransform, NULL);
-			Transform_set_position(cameraTransform, { cameraVector3.x, cameraVector3.y, 1000}, NULL);
+			Transform_set_position(cameraTransform, { cameraVector3.x, cameraVector3.y, 1000 }, NULL);
 		}
 
 		if (__this == *Game::pLocalPlayer) {
@@ -145,15 +143,15 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 				};
 			}
 			if (State.FollowerCam != nullptr) {
-				if(State.EnableZoom && !State.InMeeting)
+				if (State.EnableZoom && !State.InMeeting)
 					Camera_set_orthographicSize(State.FollowerCam, State.CameraHeight, NULL);
 				else
 					Camera_set_orthographicSize(State.FollowerCam, 3.0f, NULL);
 
 				Transform* cameraTransform = Component_get_transform((Component_1*)State.FollowerCam, NULL);
 				Vector3 cameraVector3 = Transform_get_position(cameraTransform, NULL);
-				if(State.EnableZoom && !State.InMeeting && State.CameraHeight > 3.0f)
-				Transform_set_position(cameraTransform, { cameraVector3.x, cameraVector3.y, 100 }, NULL);
+				if (State.EnableZoom && !State.InMeeting && State.CameraHeight > 3.0f)
+					Transform_set_position(cameraTransform, { cameraVector3.x, cameraVector3.y, 100 }, NULL);
 			}
 		}
 		else if (auto role = playerData->fields.Role) {
@@ -165,22 +163,6 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 				}
 			}
 		}
-
-		else {
-			// ESP: Update kill cooldowns for all imposters except me.
-			if (auto role = playerData->fields.Role;
-				role->fields.CanUseKillButton && !playerData->fields.IsDead) {
-				__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
-			}
-		}
-
-		//else {
-		//	// ESP: Update kill cooldowns for all imposters except me.
-		//	if (auto role = playerData->fields.Role;
-		//		role->fields.CanUseKillButton && !playerData->fields.IsDead) {
-		//		__this->fields.killTimer = (std::max)(__this->fields.killTimer - Time_get_fixedDeltaTime(nullptr), 0.f);
-		//	}
-		//}
 
 		if ((__this == *Game::pLocalPlayer) && (State.originalColor == Game::NoColorId)) {
 			SaveOriginalAppearance();
@@ -197,7 +179,7 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 			State.prevCamPos = { NULL, NULL, NULL };
 		}
 
-		if (State.FreeCam  && __this == *Game::pLocalPlayer) {
+		if (State.FreeCam && __this == *Game::pLocalPlayer) {
 			auto mainCamera = Camera_get_main(NULL);
 
 			Transform* cameraTransform = Component_get_transform((Component_1*)mainCamera, NULL);
@@ -281,7 +263,7 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 							State.replayWalkPolylineByPlayer[__this->fields.PlayerId].pendingTimeStamps.reserve(100);
 						}
 						auto& plrLineData = State.replayWalkPolylineByPlayer[__this->fields.PlayerId];
-						plrLineData.playerId = __this->fields.PlayerId; 
+						plrLineData.playerId = __this->fields.PlayerId;
 						plrLineData.colorId = outfit ? outfit->fields.ColorId : Game::NoColorId;
 						plrLineData.pendingPoints.push_back(mapPos_pre);
 						plrLineData.pendingTimeStamps.emplace_back(std::chrono::system_clock::now());
@@ -300,14 +282,12 @@ void dPlayerControl_FixedUpdate(PlayerControl* __this, MethodInfo* method) {
 			{
 				espPlayerData.Color = State.ShowEsp_RoleBased == false ? AmongUsColorToImVec4(GetPlayerColor(outfit->fields.ColorId))
 					: AmongUsColorToImVec4(GetRoleColor(playerData->fields.Role));
-				espPlayerData.ColorId = AmongUsColorToImVec4(GetPlayerColor(outfit->fields.ColorId));
 				espPlayerData.Name = convert_from_string(GameData_PlayerOutfit_get_PlayerName(outfit, nullptr));
 			}
 			else
 			{
 				espPlayerData.Color = State.ShowEsp_RoleBased == false ? ImVec4(0.f, 0.f, 0.f, 1.f)
 					: AmongUsColorToImVec4(GetRoleColor(playerData->fields.Role));
-				espPlayerData.ColorId = ImVec4(0.f, 0.f, 0.f, 1.f);
 				espPlayerData.Name = "<Unknown>";
 			}
 			espPlayerData.OnScreen = IsWithinScreenBounds(playerPos);
@@ -344,7 +324,6 @@ void dPlayerControl_MurderPlayer(PlayerControl* __this, PlayerControl* target, M
 
 	// ESP: Reset Kill Cooldown
 	if (__this->fields._.OwnerId != (*Game::pAmongUsClient)->fields._.ClientId) {
-		GameOptions options;
 		if (!target || target->fields.protectedByGuardian == false)
 			__this->fields.killTimer = (std::max)(GameOptions().GetKillCooldown(), 0.f);
 		else
@@ -449,24 +428,8 @@ void dPlayerControl_ProtectPlayer(PlayerControl* __this, PlayerControl* target, 
 
 void dPlayerControl_TurnOnProtection(PlayerControl* __this, bool visible, int32_t colorId, MethodInfo* method) {
 	app::PlayerControl_TurnOnProtection(__this, visible || State.ShowProtections, colorId, method);
-	std::pair pair { colorId, app::Time_get_time(nullptr) };
+	std::pair pair{ colorId, app::Time_get_time(nullptr) };
 	synchronized(State.protectMutex) {
 		State.protectMonitor[__this->fields.PlayerId] = pair;
 	}
-}
-
-void dPlayerControl_AdjustLighting(PlayerControl* __this, MethodInfo* method) {
-	app::PlayerControl_AdjustLighting(__this, method);
-
-	// ESP: Initialize kill cooldowns for all imposters except me.
-	/*for (auto pc : GetAllPlayerControl()) {
-		if (auto player = PlayerSelection(pc).validate();
-			player.has_value() && !player.is_LocalPlayer() && !player.is_Disconnected()) {
-			if (auto role = player.get_PlayerData()->fields.Role;
-				role->fields.CanUseKillButton && !player.get_PlayerData()->fields.IsDead) {
-				pc->fields.killTimer = 10.f;
-				STREAM_DEBUG("Player " << ToString(pc) << " KillTimer " << pc->fields.killTimer);
-			}
-		}
-	}*/
 }
