@@ -154,53 +154,30 @@ void Esp::Render()
 					ImVec2 position2 = { it.Position.x, it.Position.y + 30.0f * State.dpiScale };
 
 					// infamous trash codes
-					float minX = 40.0f, minY = 0.0f, 
+					float minX = 40.0f, minY = 0.0f,
 						maxX = DirectX::GetWindowSize().x - 46.0f, // 1320
 						maxY = DirectX::GetWindowSize().y - 38.0f; // 730
 
-					if (it.Position.x < minX) {
-						if (it.Position.y < minY) {
-							position = { minX, minY + 15.0f * State.dpiScale };
-							position2 = { minX, minY + 30.0f * State.dpiScale };
-						}
-						else if (it.Position.y > maxY) {
-							position = { minX, maxY + 15.0f * State.dpiScale };
-							position2 = { minX, maxY + 30.0f * State.dpiScale };
-						}
-						else {
-							position = { minX, it.Position.y + 15.0f * State.dpiScale };
-							position2 = { minX, it.Position.y + 30.0f * State.dpiScale };
-						}
+					float x = it.Position.x, y = it.Position.y;
+					float offset = 15.0f * State.dpiScale;
 
+					if (x < minX) {
+						x = minX;
 					}
-					else if (it.Position.x > maxX) {
-						if (it.Position.y > maxY) {
-							position = { maxX, maxY + 15.0f * State.dpiScale };
-							position2 = { maxX, maxY + 30.0f * State.dpiScale };
-						}
-						else if (it.Position.y < minY) {
-							position = { maxX, minY + 15.0f * State.dpiScale };
-							position2 = { maxX, minY + 30.0f * State.dpiScale };
-						}
-						else {
-							position = { maxX, it.Position.y + 15.0f * State.dpiScale };
-							position2 = { maxX, it.Position.y + 30.0f * State.dpiScale };
-						}
+					else if (x > maxX) {
+						x = maxX;
 					}
-					else {
-						if (it.Position.y < minY) {
-							position = { it.Position.x, minY + 15.0f * State.dpiScale };
-							position2 = { it.Position.x, minY + 30.0f * State.dpiScale };
-						}
-						else if (it.Position.y > maxY) {
-							position = { it.Position.x, maxY + 15.0f * State.dpiScale };
-							position2 = { it.Position.x, maxY + 30.0f * State.dpiScale };
-						}
-						else {
-							position = { it.Position.x, it.Position.y + 15.0f * State.dpiScale };
-							position2 = { it.Position.x, it.Position.y + 30.0f * State.dpiScale };
-						}
+
+					if (y < minY) {
+						y = minY;
 					}
+					else if (y > maxY) {
+						y = maxY;
+					}
+
+					position = { x, y + offset };
+					position2 = { x, y + 2 * offset };
+
 
 					// strings
 					char distance[32];
