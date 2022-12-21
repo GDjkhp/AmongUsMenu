@@ -178,7 +178,6 @@ void Esp::Render()
 					position = { x, y + offset };
 					position2 = { x, y + 2 * offset };
 
-
 					// strings
 					char distance[32];
 					sprintf_s(distance, "[%.0fm]", it.Distance);
@@ -190,8 +189,10 @@ void Esp::Render()
 					//char* pl = lol2.data();
 
 					// kill cd update
+					GameOptions options;
 					if (const auto& player = it.playerData.validate();
 						State.ShowKillCD
+						&& options.GetGameMode() != GameModes__Enum::HideNSeek
 						&& !player.is_LocalPlayer()
 						&& !player.get_PlayerData()->fields.IsDead
 						&& player.get_PlayerData()->fields.Role
