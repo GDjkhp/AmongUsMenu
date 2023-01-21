@@ -172,6 +172,7 @@ public:
     Vector3 prevCamPos = { NULL, NULL, NULL };
 
     bool FlipSkeld = false;
+    bool FlipMap = false;
 
 	bool OcclusionCulling = false;
     bool ShowUnityLogs = true;

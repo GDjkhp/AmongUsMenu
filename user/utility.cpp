@@ -816,7 +816,7 @@ void DoPolylineSimplification(std::vector<ImVec2>& inPoints, std::vector<std::ch
 
 float getMapXOffsetSkeld(float x)
 {
-	return (State.mapType == Settings::MapType::Ship && State.FlipSkeld) ? x - 50.0f : x;
+	return (State.mapType == Settings::MapType::Ship && State.FlipMap) ? x - 50.0f : x;
 }
 
 bool Object_1_IsNotNull(app::Object_1* obj)

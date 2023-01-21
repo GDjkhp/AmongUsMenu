@@ -117,7 +117,6 @@ namespace GameTab {
 				std::string win =
 					std::to_string(DirectX::GetWindowSize().x) + ", " +
 					std::to_string(DirectX::GetWindowSize().y);
-
 				Vector2 mouse = {
 					ImGui::GetMousePos().x - DirectX::GetWindowSize().x / 2,
 					(ImGui::GetMousePos().y - DirectX::GetWindowSize().y / 2) * -1.0f
@@ -128,7 +127,6 @@ namespace GameTab {
 				std::string smouse =
 					std::to_string(mouse.x) + ", " +
 					std::to_string(mouse.y);
-
 				std::string loc =
 					std::to_string(PlayerControl_GetTruePosition(*Game::pLocalPlayer, nullptr).x) + ", " +
 					std::to_string(PlayerControl_GetTruePosition(*Game::pLocalPlayer, nullptr).y);
@@ -137,6 +135,9 @@ namespace GameTab {
 				ImGui::Text("Player Pos: %s", loc);
 				ImGui::Text("Mouse Input: %s", smouse);
 				ImGui::Text("Screen to World Adjusted Mouse Input: %s", mousep);
+				if (IsInGame()) {
+					ImGui::Checkbox("dlekS ehT", &State.FlipSkeld);
+				}
 			}
 
 			if ((IsInGame() || IsInLobby()))
