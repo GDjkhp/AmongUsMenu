@@ -135,7 +135,6 @@ void dInnerNetClient_Update(InnerNetClient* __this, MethodInfo* method)
             State.rpcQueue.push(new RpcSnapTo(ScreenToWorld(target)));
         if (IsInLobby()) 
             State.lobbyRpcQueue.push(new RpcSnapTo(ScreenToWorld(target)));
-        State.rpcQueue.push(new RpcSnapTo(ScreenToWorld(target)));
     }
     InnerNetClient_Update(__this, method);
 }
