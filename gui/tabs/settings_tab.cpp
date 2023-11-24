@@ -73,11 +73,6 @@ namespace SettingsTab {
 			if (Achievements::IsSupported()
 				&& ImGui::Button("Unlock all achievements"))
 			{
-				/*for (const char* achievement : steamAchievements)
-				{
-					Game::SteamUserStats_SetAchievement(convert_to_string(std::string(achievement)));
-				}
-				Game::SteamUserStats_StoreStats();*/
 				Achievements::UnlockAll();
 			}
 
