@@ -1,5 +1,4 @@
 #include "pch-il2cpp.h"
-#include "DestroyableSingleton.h"
 #include "utility.h"
 #include "achievements.hpp"
 #include "logger.h"
@@ -7,13 +6,29 @@
 namespace Achievements {
 
 	_Ret_maybenull_ AchievementManager_1* GetAchievementManager() {
-		static DestroyableSingleton<AccountManager*> accountManager{ "Assembly-CSharp, AccountManager" };
-		if (!accountManager.IsInstanceExists()
-			|| accountManager.GetInstance()->fields.prevLoggedInStatus == EOSManager_AccountLoginStatus__Enum::Offline)
-			return nullptr;
+		static AchievementManager_1* manager = nullptr;
+		if (!manager) {
+			static AccountManager* accountManager = nullptr;
+			if (!accountManager) {
+				Type* AccountManagerType = app::Type_GetType(convert_to_string(translate_type_name("AccountManager, Assembly-CSharp")), NULL);
+				LOG_ASSERT(AccountManagerType != nullptr);
+				il2cpp::Array results = app::Object_1_FindObjectsOfType(AccountManagerType, NULL);
+				if (results.size() == 0)
+					return nullptr;
+				accountManager = reinterpret_cast<AccountManager*>(results[0]);
+			}
 
-		static DestroyableSingleton<AchievementManager_1*> manager{ "Assembly-CSharp, AchievementManager" };
-		return manager.GetInstance();
+			if (accountManager->fields.prevLoggedInStatus == EOSManager_AccountLoginStatus__Enum::Offline)
+				return nullptr;
+
+			Type* AchievementManagerType = app::Type_GetType(convert_to_string(translate_type_name("AchievementManager, Assembly-CSharp")), NULL);
+			LOG_ASSERT(AchievementManagerType != nullptr);
+			il2cpp::Array results = app::Object_1_FindObjectsOfType(AchievementManagerType, NULL);
+			if (results.size() == 0)
+				return nullptr;
+			manager = reinterpret_cast<AchievementManager_1*>(results[0]);
+		}
+		return manager;
 	}
 
 	bool IsSupported() {

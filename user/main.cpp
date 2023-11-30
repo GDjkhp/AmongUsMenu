@@ -118,8 +118,6 @@ void Run(LPVOID lpParam) {
 	GAME_STATIC_POINTER(Game::pLobbyBehaviour, app::LobbyBehaviour, Instance);
 	LOG_DEBUG(std::format("Game::RoleManager is {}", static_cast<void*>(Game::RoleManager.GetInstance())));
 	State.userName = GetPlayerName();
-
-	Game::scanGameFunctions();
 	DetourInitilization();
 #if _DEBUG
 	managedThreadAttached.detach();
