@@ -96,6 +96,7 @@ void RoleRates::SubtractRole(RoleTypes__Enum role) {
 
 int GetMaxImposterAmount(int playerAmount)
 {
+	if (State.impostor_mod) return State.impostors_amount_mod;
 	if(playerAmount >= 9)
 		return 3;
 	if(playerAmount >= 7)

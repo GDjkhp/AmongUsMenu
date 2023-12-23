@@ -109,6 +109,12 @@ namespace HostTab {
 				{
 					app::InnerNetClient_SendStartGame((InnerNetClient*)(*Game::pAmongUsClient), NULL);
 				}
+				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+				ImGui::Checkbox("Modify impostor count", &State.impostor_mod);
+				if (State.impostor_mod && 
+					CustomListBoxInt("Impostor count", &State.impostors_amount_mod, IMPOSTOR_AMOUNTS, 75 * State.dpiScale)) {
+					if (State.impostors_amount_mod < 0 || State.impostors_amount_mod > 15) State.impostors_amount_mod = 0;
+				}
 				ImGui::EndChild();
 				ImGui::EndTabItem();
 			}
