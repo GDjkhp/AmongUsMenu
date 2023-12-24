@@ -9,7 +9,7 @@
 
 using namespace ImGui;
 
-bool CustomListBoxInt(const char* label, int* value, const std::vector<const char*> list, float width, ImGuiComboFlags flags) {
+bool CustomListBoxInt(const char* label, int* value, const std::vector<const char*> list, float width, ImVec4 col, ImGuiComboFlags flags) {
 	auto comboLabel = "##" + std::string(label);
 	auto leftArrow = "##" + std::string(label) + "Left";
 	auto rightArrow = "##" + std::string(label) + "Right";
@@ -49,7 +49,8 @@ bool CustomListBoxInt(const char* label, int* value, const std::vector<const cha
 		return RightResponse;
 	}
 	SameLine(0, spacing);
-	Text(label);
+	if (col.x == 0 && col.y == 0 && col.z == 0 && col.w == 0) Text(label);
+	else TextColored(col, label);
 
 	return response;
 }
