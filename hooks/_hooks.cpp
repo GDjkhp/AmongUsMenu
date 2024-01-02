@@ -160,6 +160,8 @@ void DetourInitilization() {
 	HOOKFUNC(FungleShipStatus_OnEnable);
 	HOOKFUNC(MushroomWallDoor_SetDoorway);
 	HOOKFUNC(MushroomDoorSabotageMinigame_Begin);
+	HOOKFUNC(Ladder_SetDestinationCooldown);
+	HOOKFUNC(ZiplineConsole_SetDestinationCooldown);
 
 
 	if (!HookFunction(&(PVOID&)oPresent, dPresent, "D3D_PRESENT_FUNCTION")) return;
@@ -244,6 +246,8 @@ void DetourUninitialization()
 	UNHOOKFUNC(FungleShipStatus_OnEnable);
 	UNHOOKFUNC(MushroomWallDoor_SetDoorway);
 	UNHOOKFUNC(MushroomDoorSabotageMinigame_Begin);
+	UNHOOKFUNC(Ladder_SetDestinationCooldown);
+	UNHOOKFUNC(ZiplineConsole_SetDestinationCooldown);
 
 	if (DetourDetach(&(PVOID&)oPresent, dPresent) != 0) return;
 

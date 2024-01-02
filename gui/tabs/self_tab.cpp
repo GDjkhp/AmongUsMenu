@@ -123,6 +123,10 @@ namespace SelfTab {
                 State.Save();
             }
 
+            if (ImGui::Checkbox("No Ability Cooldown", &State.NoAbilityCD)) {
+                State.Save();
+            }
+
             ImGui::EndTabItem();
         }
     }

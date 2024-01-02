@@ -124,6 +124,7 @@ void dInnerNetClient_Update(InnerNetClient* __this, MethodInfo* method)
     else {
         nameChangeCycleDelay--;
     }
+
     // Right-click Teleport
     if (State.RightClickTeleport && ImGui::IsMouseClicked(ImGuiMouseButton_Right)) {
         ImVec2 mouse = ImGui::GetMousePos();
@@ -136,7 +137,80 @@ void dInnerNetClient_Update(InnerNetClient* __this, MethodInfo* method)
         if (IsInLobby()) 
             State.lobbyRpcQueue.push(new RpcSnapTo(ScreenToWorld(target)));
     }
+
+    // no cooldown?
+    if ((IsInGame() || IsInLobby()) && GameOptions().GetGameMode() == GameModes__Enum::Normal) {
+        auto localData = GetPlayerData(*Game::pLocalPlayer);
+        app::RoleBehaviour* playerRole = localData->fields.Role;
+        app::RoleTypes__Enum role = playerRole != nullptr ? (playerRole)->fields.Role : app::RoleTypes__Enum::Crewmate;
+        if (State.NoAbilityCD) {
+            if (role == RoleTypes__Enum::Engineer)
+            {
+                app::EngineerRole* engineerRole = (app::EngineerRole*)playerRole;
+                if (engineerRole->fields.cooldownSecondsRemaining > 0.0f)
+                    engineerRole->fields.cooldownSecondsRemaining = 0.01f; //This will be deducted below zero on the next FixedUpdate call
+                engineerRole->fields.inVentTimeRemaining = 30.0f; //Can be anything as it will always be written
+            }
+            else if (role == RoleTypes__Enum::Scientist) {
+                app::ScientistRole* scientistRole = (app::ScientistRole*)playerRole;
+                if (scientistRole->fields.currentCooldown > 0.0f)
+                    scientistRole->fields.currentCooldown = 0.01f; //This will be deducted below zero on the next FixedUpdate call
+                scientistRole->fields.currentCharge = 69420.0f + 1.0f; //Can be anything as it will always be written
+            }
+            if (GameLogicOptions().GetKillCooldown() > 0)
+                (*Game::pLocalPlayer)->fields.killTimer = 0;
+            else
+                GameLogicOptions().SetFloat(app::FloatOptionNames__Enum::KillCooldown, 0.0042069f); //force cooldown > 0 as ur unable to kill otherwise
+            if (IsHost()) {
+                if (IsHost()) {
+                    GameLogicOptions().SetFloat(app::FloatOptionNames__Enum::ShapeshifterCooldown, 0); //force set cooldown, otherwise u get kicked
+                    GameLogicOptions().SetFloat(app::FloatOptionNames__Enum::ShapeshifterDuration, 0);
+                }
+                else {
+                    app::ShapeshifterRole* shapeshifterRole = (app::ShapeshifterRole*)playerRole;
+                    if (shapeshifterRole->fields.cooldownSecondsRemaining > 0.0f)
+                        shapeshifterRole->fields.cooldownSecondsRemaining = 0.01f; //This will be deducted below zero on the next FixedUpdate call
+                    shapeshifterRole->fields.durationSecondsRemaining = 69420.0f; //Can be anything as it will always be written
+                }
+                if (role == RoleTypes__Enum::GuardianAngel) {
+                    app::GuardianAngelRole* guardianAngelRole = (app::GuardianAngelRole*)playerRole;
+                    if (guardianAngelRole->fields.cooldownSecondsRemaining > 0.0f)
+                        guardianAngelRole->fields.cooldownSecondsRemaining = 0.01f; //This will be deducted below zero on the next FixedUpdate call
+                }
+            }
+        }
+    }
+    if ((IsInGame() || IsInLobby()) && GameOptions().GetGameMode() == GameModes__Enum::HideNSeek && State.NoAbilityCD) {
+        auto localData = GetPlayerData(*Game::pLocalPlayer);
+        app::RoleBehaviour* playerRole = localData->fields.Role;
+        app::RoleTypes__Enum role = playerRole != nullptr ? (playerRole)->fields.Role : app::RoleTypes__Enum::Crewmate;
+        (*Game::pLocalPlayer)->fields.killTimer = 0;
+        if (role == RoleTypes__Enum::Engineer)
+        {
+            app::EngineerRole* engineerRole = (app::EngineerRole*)playerRole;
+            if (engineerRole->fields.cooldownSecondsRemaining > 0.0f)
+                engineerRole->fields.cooldownSecondsRemaining = 0.01f; //This will be deducted below zero on the next FixedUpdate call
+            engineerRole->fields.inVentTimeRemaining = 30.0f; //Can be anything as it will always be written
+        }
+    }
+
     InnerNetClient_Update(__this, method);
+}
+
+void dLadder_SetDestinationCooldown(Ladder* __this, MethodInfo* method) {
+    if (State.NoAbilityCD) {
+        __this->fields._CoolDown_k__BackingField = 0.f;
+        return;
+    }
+    return Ladder_SetDestinationCooldown(__this, method);
+}
+
+void dZiplineConsole_SetDestinationCooldown(ZiplineConsole* __this, MethodInfo* method) {
+    if (State.NoAbilityCD) {
+        __this->fields._CoolDown_k__BackingField = 0.f;
+        return;
+    }
+    return ZiplineConsole_SetDestinationCooldown(__this, method);
 }
 
 void dAmongUsClient_OnPlayerLeft(AmongUsClient* __this, ClientData* data, DisconnectReasons__Enum reason, MethodInfo* method) {

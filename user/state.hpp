@@ -144,6 +144,7 @@ public:
     int crewmates_amount = 0;
     int impostors_amount_mod = 0;
     bool impostor_mod = false;
+    bool NoAbilityCD = false;
 
     bool Wallhack = false;
     bool FreeCam = false;

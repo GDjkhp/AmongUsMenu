@@ -245,3 +245,7 @@ DO_APP_FUNC(LogicOptions*, GameManager_get_LogicOptions, (GameManager* __this, M
 DO_APP_FUNC(void, FungleShipStatus_OnEnable, (FungleShipStatus* __this, MethodInfo* method), "Assembly-CSharp, System.Void FungleShipStatus::OnEnable()");
 DO_APP_FUNC(void, MushroomWallDoor_SetDoorway, (MushroomWallDoor* __this, bool open, MethodInfo* method), "Assembly-CSharp, System.Void MushroomWallDoor::SetDoorway(System.Boolean)");
 DO_APP_FUNC(void, MushroomDoorSabotageMinigame_Begin, (MushroomDoorSabotageMinigame* __this, PlayerTask* task, MethodInfo* method), "Assembly-CSharp, System.Void MushroomDoorSabotageMinigame::Begin(PlayerTask)");
+
+// SickoMode
+DO_APP_FUNC(void, Ladder_SetDestinationCooldown, (Ladder* __this, MethodInfo* method), "Assembly-CSharp, System.Void Ladder::SetDestinationCooldown()");
+DO_APP_FUNC(void, ZiplineConsole_SetDestinationCooldown, (ZiplineConsole* __this, MethodInfo* method), "Assembly-CSharp, System.Void ZiplineConsole::SetDestinationCooldown()");

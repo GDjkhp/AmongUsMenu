@@ -10297,6 +10297,252 @@ namespace app
     };
 #pragma endregion
 
+#pragma region ScientistRole
+    struct ScientistRole__Fields {
+        struct RoleBehaviour__Fields _;
+        struct VitalsMinigame* VitalsPrefab;
+        struct VitalsMinigame* minigame;
+        float currentCharge;
+        float currentCooldown;
+    };
+
+    struct ScientistRole {
+        struct ScientistRole__Class* klass;
+        MonitorData* monitor;
+        struct ScientistRole__Fields fields;
+    };
+
+    struct ScientistRole__VTable {
+        VirtualInvokeData Equals;
+        VirtualInvokeData Finalize;
+        VirtualInvokeData GetHashCode;
+        VirtualInvokeData ToString;
+        VirtualInvokeData get_IsDead;
+        VirtualInvokeData get_IsAffectedByComms;
+        VirtualInvokeData CanUse;
+        VirtualInvokeData DidWin;
+        VirtualInvokeData Deinitialize;
+        VirtualInvokeData SpawnTaskHeader;
+        VirtualInvokeData UseAbility;
+        VirtualInvokeData OnVotingComplete;
+        VirtualInvokeData Initialize;
+        VirtualInvokeData SetUsableTarget;
+        VirtualInvokeData SetPlayerTarget;
+        VirtualInvokeData SetCooldown;
+        VirtualInvokeData IsValidTarget;
+        VirtualInvokeData FindClosestTarget;
+        VirtualInvokeData GetAbilityDistance;
+        VirtualInvokeData AdjustTasks;
+        VirtualInvokeData AppendTaskHint;
+    };
+
+    struct ScientistRole__StaticFields {
+    };
+
+    struct ScientistRole__Class {
+        Il2CppClass_0 _0;
+        Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+        struct ScientistRole__StaticFields* static_fields;
+        const Il2CppRGCTXData* rgctx_data;
+        Il2CppClass_1 _1;
+        struct ScientistRole__VTable vtable;
+    };
+#pragma endregion
+
+#pragma region ShapeshifterRole
+    struct ImpostorRole__Fields {
+        struct RoleBehaviour__Fields _;
+    };
+
+    struct ShapeshifterRole__Fields {
+        struct ImpostorRole__Fields _;
+        struct ShapeshifterEvidence* EvidencePrefab;
+        struct Vector3 EvidenceOffset;
+        struct ShapeshifterMinigame* ShapeshifterMenu;
+        float cooldownSecondsRemaining;
+        float durationSecondsRemaining;
+    };
+
+    struct ShapeshifterRole {
+        struct ShapeshifterRole__Class* klass;
+        MonitorData* monitor;
+        struct ShapeshifterRole__Fields fields;
+    };
+#pragma endregion
+
+#pragma region GuardianAngelRole
+    struct CrewmateGhostRole__Fields {
+        struct RoleBehaviour__Fields _;
+        struct Minigame* HauntMenu;
+    };
+
+    struct GuardianAngelRole__Fields {
+        struct CrewmateGhostRole__Fields _;
+        struct PlayerControl* currentTarget;
+        float cooldownSecondsRemaining;
+    };
+
+    struct GuardianAngelRole {
+        struct GuardianAngelRole__Class* klass;
+        MonitorData* monitor;
+        struct GuardianAngelRole__Fields fields;
+    };
+
+    struct GuardianAngelRole__VTable {
+        VirtualInvokeData Equals;
+        VirtualInvokeData Finalize;
+        VirtualInvokeData GetHashCode;
+        VirtualInvokeData ToString;
+        VirtualInvokeData get_IsDead;
+        VirtualInvokeData get_IsAffectedByComms;
+        VirtualInvokeData CanUse;
+        VirtualInvokeData DidWin;
+        VirtualInvokeData Deinitialize;
+        VirtualInvokeData SpawnTaskHeader;
+        VirtualInvokeData UseAbility;
+        VirtualInvokeData OnVotingComplete;
+        VirtualInvokeData Initialize;
+        VirtualInvokeData SetUsableTarget;
+        VirtualInvokeData SetPlayerTarget;
+        VirtualInvokeData SetCooldown;
+        VirtualInvokeData IsValidTarget;
+        VirtualInvokeData FindClosestTarget;
+        VirtualInvokeData GetAbilityDistance;
+        VirtualInvokeData AdjustTasks;
+        VirtualInvokeData AppendTaskHint;
+    };
+
+    struct GuardianAngelRole__StaticFields {
+    };
+
+    struct GuardianAngelRole__Class {
+        Il2CppClass_0 _0;
+        Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+        struct GuardianAngelRole__StaticFields* static_fields;
+        const Il2CppRGCTXData* rgctx_data;
+        Il2CppClass_1 _1;
+        struct GuardianAngelRole__VTable vtable;
+    };
+#pragma endregion
+
+#pragma region Ladder
+    struct Ladder__Fields {
+        struct MonoBehaviour__Fields _;
+        uint8_t Id;
+        struct SpriteRenderer* SpotArea;
+        bool IsTop;
+        struct Ladder* Destination;
+        struct AudioClip* UseSound;
+        struct SpriteRenderer* Image;
+        float _CoolDown_k__BackingField;
+    };
+
+    struct Ladder {
+        struct Ladder__Class* klass;
+        MonitorData* monitor;
+        struct Ladder__Fields fields;
+    };
+
+    struct Ladder__VTable {
+        VirtualInvokeData Equals;
+        VirtualInvokeData Finalize;
+        VirtualInvokeData GetHashCode;
+        VirtualInvokeData ToString;
+        VirtualInvokeData get_CoolDown;
+        VirtualInvokeData set_CoolDown;
+        VirtualInvokeData get_MaxCoolDown;
+        VirtualInvokeData IsCoolingDown;
+        VirtualInvokeData get_UsableDistance;
+        VirtualInvokeData get_PercentCool;
+        VirtualInvokeData get_UseIcon;
+        VirtualInvokeData SetOutline;
+        VirtualInvokeData CanUse;
+        VirtualInvokeData Use;
+    };
+
+    struct Ladder__StaticFields {
+    };
+
+    struct Ladder__Class {
+        Il2CppClass_0 _0;
+        Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+        struct Ladder__StaticFields* static_fields;
+        const Il2CppRGCTXData* rgctx_data;
+        Il2CppClass_1 _1;
+        struct Ladder__VTable vtable;
+    };
+
+    struct Ladder__Array {
+        struct Ladder__Array__Class* klass;
+        MonitorData* monitor;
+        Il2CppArrayBounds* bounds;
+        il2cpp_array_size_t max_length;
+        struct Ladder* vector[32];
+    };
+
+    struct Ladder__Array__VTable {
+    };
+
+    struct Ladder__Array__StaticFields {
+    };
+
+    struct Ladder__Array__Class {
+        Il2CppClass_0 _0;
+        Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+        struct Ladder__Array__StaticFields* static_fields;
+        const Il2CppRGCTXData* rgctx_data;
+        Il2CppClass_1 _1;
+        struct Ladder__Array__VTable vtable;
+    };
+#pragma endregion
+
+#pragma region ZiplineConsole
+    struct ZiplineConsole__Fields {
+        struct MonoBehaviour__Fields _;
+        float usableDistance;
+        struct SpriteRenderer* image;
+        struct ZiplineBehaviour* zipline;
+        bool atTop;
+        struct ZiplineConsole* destination;
+        float _CoolDown_k__BackingField;
+    };
+
+    struct ZiplineConsole {
+        struct ZiplineConsole__Class* klass;
+        MonitorData* monitor;
+        struct ZiplineConsole__Fields fields;
+    };
+
+    struct ZiplineConsole__VTable {
+        VirtualInvokeData Equals;
+        VirtualInvokeData Finalize;
+        VirtualInvokeData GetHashCode;
+        VirtualInvokeData ToString;
+        VirtualInvokeData get_CoolDown;
+        VirtualInvokeData set_CoolDown;
+        VirtualInvokeData get_MaxCoolDown;
+        VirtualInvokeData IsCoolingDown;
+        VirtualInvokeData get_UsableDistance;
+        VirtualInvokeData get_PercentCool;
+        VirtualInvokeData get_UseIcon;
+        VirtualInvokeData SetOutline;
+        VirtualInvokeData CanUse;
+        VirtualInvokeData Use;
+    };
+
+    struct ZiplineConsole__StaticFields {
+    };
+
+    struct ZiplineConsole__Class {
+        Il2CppClass_0 _0;
+        Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+        struct ZiplineConsole__StaticFields* static_fields;
+        const Il2CppRGCTXData* rgctx_data;
+        Il2CppClass_1 _1;
+        struct ZiplineConsole__VTable vtable;
+    };
+#pragma endregion
+
 #pragma region RoleManager
     struct RoleManager__Fields
     {
