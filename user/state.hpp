@@ -142,9 +142,12 @@ public:
     int engineers_amount = 0;
     int scientists_amount = 0;
     int crewmates_amount = 0;
+
+    // something comforting
     int impostors_amount_mod = 0;
     bool impostor_mod = false;
     bool NoAbilityCD = false;
+    bool SetName = false;
 
     bool Wallhack = false;
     bool FreeCam = false;

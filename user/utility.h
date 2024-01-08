@@ -279,3 +279,4 @@ class GameLogicOptions : public GameOptions {
 public:
 	GameLogicOptions();
 };
+bool IsNameValid(std::string str);

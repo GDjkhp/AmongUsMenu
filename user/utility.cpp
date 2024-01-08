@@ -1045,3 +1045,10 @@ void SaveGameOptions(const class GameOptions& gameOptions) {
 	State.mapHostChoice = gameOptions.GetMapId();
 	State.impostors_amount = gameOptions.GetNumImpostors();
 }
+
+bool IsNameValid(std::string str) {
+	if (str == "") return false;
+	if (str.length() > 12) return false;
+	if (str.find("<") != std::string::npos || str.find(">") != std::string::npos || str.find("=") != std::string::npos) return false;
+	return true;
+}

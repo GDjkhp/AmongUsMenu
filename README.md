@@ -23,6 +23,7 @@
 - Horse mode
 - Custom free/quick chat
 - Right click to teleport within screen
+- SickoMode features (No ability cooldown, Revive, etc.)
 - More cool stuff soon...
 
 ## Disclaimer
