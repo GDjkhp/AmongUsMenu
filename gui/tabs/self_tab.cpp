@@ -127,6 +127,10 @@ namespace SelfTab {
                 State.Save();
             }
 
+            if (ImGui::Checkbox("Shapeshift without Animation", &State.AnimationlessShapeshift)) {
+                State.Save();
+            }
+
             ImGui::EndTabItem();
         }
     }

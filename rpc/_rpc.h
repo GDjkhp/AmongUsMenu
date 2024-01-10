@@ -150,3 +150,54 @@ public:
 	virtual void PrintUser();
 	virtual void PrintMessage();
 };
+
+// sickomode
+class RpcForceSnapTo : public RPCInterface {
+	PlayerControl* Player;
+	Vector2 targetVector;
+public:
+	RpcForceSnapTo(PlayerControl* Player, Vector2 targetVector);
+	virtual void Process() override;
+};
+
+class RpcShapeshift : public RPCInterface {
+	PlayerControl* Player;
+	PlayerSelection target;
+	bool animate;
+public:
+	RpcShapeshift(PlayerControl* Player, const PlayerSelection& target, bool animate);
+	virtual void Process() override;
+};
+
+class CmdCheckShapeshift : public RPCInterface {
+	PlayerControl* Player;
+	PlayerSelection target;
+	bool animate;
+public:
+	CmdCheckShapeshift(PlayerControl* Player, const PlayerSelection& target, bool animate);
+	virtual void Process() override;
+};
+
+class RpcProtectPlayer : public RPCInterface {
+	PlayerControl* Player;
+	PlayerSelection target;
+	uint8_t color;
+public:
+	RpcProtectPlayer(PlayerControl* Player, PlayerSelection target, uint8_t color);
+	virtual void Process() override;
+};
+
+class CmdCheckProtect : public RPCInterface {
+	PlayerControl* Player;
+	PlayerSelection target;
+public:
+	CmdCheckProtect(PlayerControl* Player, PlayerSelection target);
+	virtual void Process() override;
+};
+
+class RpcVoteKick : public RPCInterface {
+	PlayerControl* target;
+public:
+	RpcVoteKick(PlayerControl* target);
+	virtual void Process() override;
+};

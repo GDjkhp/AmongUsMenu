@@ -200,6 +200,20 @@ namespace PlayersTab {
 						}
 					}
 
+					if (IsHost() && ImGui::Button("Kick")) {
+						app::InnerNetClient_KickPlayer((InnerNetClient*)(*Game::pAmongUsClient), selectedPlayer.get_PlayerControl()->fields._.OwnerId, false, NULL);
+					}
+					if (ImGui::Button("Votekick")) {
+						if (IsInGame() || IsInLobby()) {
+							for (auto player : GetAllPlayerControl())
+								State.rpcQueue.push(new RpcVoteKick(selectedPlayer.get_PlayerControl()));
+						}
+					}
+					ImGui::SameLine();
+					if (ImGui::Button("Ban")) {
+						app::InnerNetClient_KickPlayer((InnerNetClient*)(*Game::pAmongUsClient), selectedPlayer.get_PlayerControl()->fields._.OwnerId, true, NULL);
+					}
+
 					if (framesPassed == 0)
 					{
 						State.rpcQueue.push(new RpcSnapTo(previousPlayerPosition));
@@ -207,12 +221,87 @@ namespace PlayersTab {
 					}
 					else framesPassed--;
 
+					app::RoleBehaviour* playerRole = localData->fields.Role;
+					app::RoleTypes__Enum role = playerRole != nullptr ? playerRole->fields.Role : app::RoleTypes__Enum::Crewmate;
+
+					if (ImGui::Button("Shift"))
+					{
+						if (IsInGame())
+							State.rpcQueue.push(new RpcShapeshift(*Game::pLocalPlayer, State.selectedPlayer, !State.AnimationlessShapeshift));
+						else if (IsInLobby())
+							State.lobbyRpcQueue.push(new RpcShapeshift(*Game::pLocalPlayer, State.selectedPlayer, !State.AnimationlessShapeshift));
+					}
+					else if (role == RoleTypes__Enum::Shapeshifter) {
+						app::ShapeshifterRole* shapeshifterRole = (app::ShapeshifterRole*)playerRole;
+						if (shapeshifterRole->fields.cooldownSecondsRemaining <= 0 && ImGui::Button("Shift"))
+						{
+							if (IsInGame())
+								State.rpcQueue.push(new CmdCheckShapeshift(*Game::pLocalPlayer, State.selectedPlayer, !State.AnimationlessShapeshift));
+							else if (IsInLobby())
+								State.lobbyRpcQueue.push(new CmdCheckShapeshift(*Game::pLocalPlayer, State.selectedPlayer, !State.AnimationlessShapeshift));
+						}
+					}
+
+					if (ImGui::Button("Shift Everyone To"))
+					{
+						for (auto player : GetAllPlayerControl()) {
+							if (IsInGame()) {
+								State.rpcQueue.push(new RpcShapeshift(player, State.selectedPlayer, !State.AnimationlessShapeshift));
+							}
+							else if (IsInLobby()) {
+								State.lobbyRpcQueue.push(new RpcShapeshift(player, State.selectedPlayer, !State.AnimationlessShapeshift));
+							}
+						}
+					}
+					
+					if (ImGui::Button("Unshift Everyone"))
+					{
+						for (auto player : GetAllPlayerControl()) {
+							if (IsInGame()) {
+								State.rpcQueue.push(new RpcShapeshift(player, PlayerSelection(player), !State.AnimationlessShapeshift));
+							}
+							else if (IsInLobby()) {
+								State.lobbyRpcQueue.push(new RpcShapeshift(player, PlayerSelection(player), !State.AnimationlessShapeshift));
+							}
+						}
+					}
+
+					if (IsHost())
+					{
+						if (ImGui::Button("Protect Player")) {
+							app::GameData_PlayerOutfit* outfit = GetPlayerOutfit(GetPlayerData(*Game::pLocalPlayer));
+							auto colorId = outfit->fields.ColorId;
+							if (IsInGame())
+								State.rpcQueue.push(new RpcProtectPlayer(*Game::pLocalPlayer, State.selectedPlayer, colorId));
+							else if (IsInLobby())
+								State.lobbyRpcQueue.push(new RpcProtectPlayer(*Game::pLocalPlayer, State.selectedPlayer, colorId));
+						}
+					}
+					else if (role == RoleTypes__Enum::GuardianAngel) {
+						app::GuardianAngelRole* guardianAngelRole = (app::GuardianAngelRole*)playerRole;
+						if (guardianAngelRole->fields.cooldownSecondsRemaining <= 0 && ImGui::Button("Protect Player")) {
+							if (IsInGame())
+								State.rpcQueue.push(new CmdCheckProtect(*Game::pLocalPlayer, State.selectedPlayer));
+							else if (IsInLobby())
+								State.lobbyRpcQueue.push(new CmdCheckProtect(*Game::pLocalPlayer, State.selectedPlayer));
+						}
+					}
+
 					if (!selectedPlayer.is_LocalPlayer()) {
 						if (ImGui::Button("Teleport To")) {
 							if(IsInGame())
 								State.rpcQueue.push(new RpcSnapTo(GetTrueAdjustedPosition(selectedPlayer.get_PlayerControl())));
 							else if (IsInLobby())
 								State.lobbyRpcQueue.push(new RpcSnapTo(GetTrueAdjustedPosition(selectedPlayer.get_PlayerControl())));
+						}
+					}
+					ImGui::SameLine();
+					if (!selectedPlayer.is_LocalPlayer()) {
+						if (ImGui::Button("Teleport To You")) {
+							if (IsInGame())
+								State.rpcQueue.push(new RpcForceSnapTo(selectedPlayer.get_PlayerControl(), GetTrueAdjustedPosition(*Game::pLocalPlayer)));
+							else if (IsInLobby())
+								State.lobbyRpcQueue.push(new RpcForceSnapTo(selectedPlayer.get_PlayerControl(), GetTrueAdjustedPosition(*Game::pLocalPlayer)));
 						}
 					}
 

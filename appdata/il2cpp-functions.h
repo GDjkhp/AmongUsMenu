@@ -249,3 +249,10 @@ DO_APP_FUNC(void, MushroomDoorSabotageMinigame_Begin, (MushroomDoorSabotageMinig
 // SickoMode
 DO_APP_FUNC(void, Ladder_SetDestinationCooldown, (Ladder* __this, MethodInfo* method), "Assembly-CSharp, System.Void Ladder::SetDestinationCooldown()");
 DO_APP_FUNC(void, ZiplineConsole_SetDestinationCooldown, (ZiplineConsole* __this, MethodInfo* method), "Assembly-CSharp, System.Void ZiplineConsole::SetDestinationCooldown()");
+DO_APP_FUNC(void, PlayerControl_RpcShapeshift, (PlayerControl* __this, PlayerControl* target, bool animate, MethodInfo* method), "Assembly-CSharp, System.Void PlayerControl::RpcShapeshift(PlayerControl, System.Boolean)");
+DO_APP_FUNC(void, PlayerControl_CmdCheckShapeshift, (PlayerControl* __this, PlayerControl* target, bool animate, MethodInfo* method), "Assembly-CSharp, System.Void PlayerControl::CmdCheckShapeshift(PlayerControl, System.Boolean)");
+DO_APP_FUNC(void, PlayerControl_RpcProtectPlayer, (PlayerControl* __this, PlayerControl* target, int32_t colorId, MethodInfo* method), "Assembly-CSharp, System.Void PlayerControl::RpcProtectPlayer(PlayerControl, System.Int32)");
+DO_APP_FUNC(void, PlayerControl_CmdCheckProtect, (PlayerControl* __this, PlayerControl* target, MethodInfo* method), "Assembly-CSharp, System.Void PlayerControl::CmdCheckProtect(PlayerControl)");
+DO_APP_FUNC(void, PlayerControl_CmdCheckRevertShapeshift, (PlayerControl* __this, bool shouldAnimate, MethodInfo* method), "Assembly-CSharp, System.Void PlayerControl::CmdCheckRevertShapeshift(System.Boolean)");
+DO_APP_FUNC(void, InnerNetClient_KickPlayer, (InnerNetClient* __this, int32_t clientId, bool ban, MethodInfo* method), "Assembly-CSharp, System.Void InnerNet.InnerNetClient::KickPlayer(System.Int32, System.Boolean)");
+DO_APP_FUNC(void, VoteBanSystem_CmdAddVote, (VoteBanSystem* __this, int32_t clientId, MethodInfo* method), "Assembly-CSharp, System.Void VoteBanSystem::CmdAddVote(System.Int32)");

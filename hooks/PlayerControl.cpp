@@ -456,3 +456,33 @@ void dPlayerControl_TurnOnProtection(PlayerControl* __this, bool visible, int32_
 		State.protectMonitor[__this->fields.PlayerId] = pair;
 	}
 }
+
+void dPlayerControl_RpcShapeshift(PlayerControl* __this, PlayerControl* target, bool animate, MethodInfo* method)
+{
+	try {
+		PlayerControl_RpcShapeshift(__this, target, !State.AnimationlessShapeshift, method);
+	}
+	catch (...) {
+		LOG_DEBUG("Exception occurred in PlayerControl_RpcShapeshift (PlayerControl)");
+	}
+}
+
+void dPlayerControl_CmdCheckShapeshift(PlayerControl* __this, PlayerControl* target, bool animate, MethodInfo* method)
+{
+	try {
+		PlayerControl_CmdCheckShapeshift(__this, target, !State.AnimationlessShapeshift, method);
+	}
+	catch (...) {
+		LOG_DEBUG("Exception occurred in PlayerControl_RpcShapeshift (PlayerControl)");
+	}
+}
+
+void dPlayerControl_CmdCheckRevertShapeshift(PlayerControl* __this, bool animate, MethodInfo* method)
+{
+	try {
+		PlayerControl_CmdCheckRevertShapeshift(__this, !State.AnimationlessShapeshift, method);
+	}
+	catch (...) {
+		LOG_DEBUG("Exception occurred in PlayerControl_RpcShapeshift (PlayerControl)");
+	}
+}

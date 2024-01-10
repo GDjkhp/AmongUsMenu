@@ -10240,6 +10240,7 @@ namespace app
     };
 #pragma endregion
 
+// sickomode
 #pragma region EngineerRole
     struct EngineerRole__Fields
     {
@@ -10542,6 +10543,44 @@ namespace app
         struct ZiplineConsole__VTable vtable;
     };
 #pragma endregion
+
+    struct VoteBanSystem__Fields {
+        struct InnerNetObject__Fields _;
+        struct Dictionary_2_System_Int32_System_Int32__1* Votes;
+    };
+
+    struct VoteBanSystem {
+        struct VoteBanSystem__Class* klass;
+        MonitorData* monitor;
+        struct VoteBanSystem__Fields fields;
+    };
+
+    struct VoteBanSystem__VTable {
+        VirtualInvokeData Equals;
+        VirtualInvokeData Finalize;
+        VirtualInvokeData GetHashCode;
+        VirtualInvokeData ToString;
+        VirtualInvokeData CompareTo;
+        VirtualInvokeData get_IsDirty;
+        VirtualInvokeData get_Chunked;
+        VirtualInvokeData OnDestroy;
+        VirtualInvokeData HandleRpc;
+        VirtualInvokeData Serialize;
+        VirtualInvokeData Deserialize;
+    };
+
+    struct VoteBanSystem__StaticFields {
+        struct VoteBanSystem* Instance;
+    };
+
+    struct VoteBanSystem__Class {
+        Il2CppClass_0 _0;
+        Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+        struct VoteBanSystem__StaticFields* static_fields;
+        const Il2CppRGCTXData* rgctx_data;
+        Il2CppClass_1 _1;
+        struct VoteBanSystem__VTable vtable;
+    };
 
 #pragma region RoleManager
     struct RoleManager__Fields

@@ -148,6 +148,7 @@ public:
     bool impostor_mod = false;
     bool NoAbilityCD = false;
     bool SetName = false;
+    bool AnimationlessShapeshift = false;
 
     bool Wallhack = false;
     bool FreeCam = false;
