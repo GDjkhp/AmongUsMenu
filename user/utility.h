@@ -280,3 +280,4 @@ public:
 	GameLogicOptions();
 };
 bool IsNameValid(std::string str);
+int GetMaxImposterAmount(int playerAmount);

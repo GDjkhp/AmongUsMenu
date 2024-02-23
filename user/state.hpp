@@ -144,7 +144,7 @@ public:
     int crewmates_amount = 0;
 
     // something comforting
-    int impostors_amount_mod = 0;
+    int impostors_amount_mod = 1;
     bool impostor_mod = false;
     bool NoAbilityCD = false;
     bool SetName = false;

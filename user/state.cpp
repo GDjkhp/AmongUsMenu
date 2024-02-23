@@ -96,6 +96,8 @@ void Settings::Load() {
         JSON_TRYGET("NoAbilityCD", this->NoAbilityCD);
         JSON_TRYGET("SetName", this->SetName);
         JSON_TRYGET("AnimationlessShapeshift", this->AnimationlessShapeshift);
+        JSON_TRYGET("impostors_amount_mod", this->impostors_amount_mod);
+        JSON_TRYGET("impostor_mod", this->impostor_mod);
     } catch (...) {
         Log.Info("Unable to load settings.json");
     }
@@ -176,7 +178,9 @@ void Settings::Save() {
             {"LockWindows", this->LockWindows},
             {"NoAbilityCD", this->NoAbilityCD},
             {"SetName", this->SetName},
-            { "AnimationlessShapeshift", this->AnimationlessShapeshift },
+            {"AnimationlessShapeshift", this->AnimationlessShapeshift},
+            {"impostors_amount_mod", this->impostors_amount_mod},
+            {"impostor_mod", this->impostor_mod},
         };
 
         std::ofstream outSettings(settingsPath);

@@ -21,7 +21,9 @@ int randi(int lo, int hi) {
 RoleRates::RoleRates(const class GameOptions& gameOptions, int playerAmount) {
 	this->ImposterCount = gameOptions.GetNumImpostors();
 	auto maxImpostors = GetMaxImposterAmount(playerAmount);
-	if(this->ImposterCount > maxImpostors)
+	if (State.impostor_mod)
+		this->ImposterCount = maxImpostors;
+	else if (this->ImposterCount > maxImpostors)
 		this->ImposterCount = maxImpostors;
 
 	const auto& roleOptions = gameOptions.GetRoleOptions();
