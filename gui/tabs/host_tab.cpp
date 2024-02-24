@@ -83,14 +83,14 @@ namespace HostTab {
 				ImGui::SameLine();
 			}
 
-			ImGui::BeginChild("host#actions", ImVec2(200, 0) * State.dpiScale, true);
+			ImGui::BeginChild("host#actions", ImVec2(210, 0) * State.dpiScale, true);
 
 			// AU v2022.8.24 has been able to change maps in lobby.
 			State.mapHostChoice = options.GetByte(app::ByteOptionNames__Enum::MapId);
 			if (State.mapHostChoice > 3)
 				State.mapHostChoice--;
 			State.mapHostChoice = std::clamp(State.mapHostChoice, 0, (int)MAP_NAMES.size() - 1);
-			if (IsInLobby() && CustomListBoxInt("Map", &State.mapHostChoice, MAP_NAMES, 75 * State.dpiScale)) {
+			if (IsHost() && IsInLobby() && CustomListBoxInt("Map", &State.mapHostChoice, MAP_NAMES, 75 * State.dpiScale)) {
 				if (!IsInGame()) {
 					// disable flip
 					/*if (State.mapHostChoice == 3) {
@@ -107,7 +107,7 @@ namespace HostTab {
 				}
 			}
 			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
-			if (IsInLobby() && ImGui::Button("Force Start of Game"))
+			if (IsHost() && IsInLobby() && ImGui::Button("Force Start of Game"))
 			{
 				app::InnerNetClient_SendStartGame((InnerNetClient*)(*Game::pAmongUsClient), NULL);
 			}
