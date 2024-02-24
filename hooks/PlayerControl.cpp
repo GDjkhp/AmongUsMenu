@@ -361,17 +361,33 @@ void dPlayerControl_MurderPlayer(PlayerControl* __this, PlayerControl* target, M
 
 void dPlayerControl_StartMeeting(PlayerControl* __this, GameData_PlayerInfo* target, MethodInfo* method)
 {
-	if (auto player = GetEventPlayerControl(__this);
-		player && target) {
-		synchronized(Replay::replayEventMutex) {
-			State.liveReplayEvents.emplace_back(std::make_unique<ReportDeadBodyEvent>(player.value(), GetEventPlayer(target), PlayerControl_GetTruePosition(__this, NULL), GetTargetPosition(target)));
+	try {
+		if (State.DisableMeetings) {
+			return;
+		}
+		else {
+			synchronized(Replay::replayEventMutex) {
+				State.liveReplayEvents.emplace_back(std::make_unique<ReportDeadBodyEvent>(GetEventPlayerControl(__this).value(), GetEventPlayer(target), PlayerControl_GetTruePosition(__this, NULL), GetTargetPosition(target)));
+			}
 		}
 	}
-	app::PlayerControl_StartMeeting(__this, target, method);
+	catch (...) {
+		LOG_DEBUG("Exception occurred in PlayerControl_StartMeeting (PlayerControl)");
+	}
+	PlayerControl_StartMeeting(__this, target, method);
 }
 
 void dPlayerControl_HandleRpc(PlayerControl* __this, uint8_t callId, MessageReader* reader, MethodInfo* method) {
-	HandleRpc(callId, reader);
+	try {
+		HandleRpc(callId, reader);
+		if (IsHost() && ((State.DisableMeetings && (callId == 11 || callId == 14)) || (State.DisableSabotages && (callId == 27 || callId == 28))))
+			return; //11 is rpcreportdeadbody, 14 is rpcstartmeeting, 27 is rpcclosedoorsoftype, 28 is RpcUpdateSystem (unintentionally disables medbay scanning, look into this later)
+		if (State.DisableCallId && callId == State.ToDisableCallId)
+			return;
+	}
+	catch (...) {
+		LOG_DEBUG("Exception occurred in PlayerControl_HandleRpc (PlayerControl)");
+	}
 	PlayerControl_HandleRpc(__this, callId, reader, NULL);
 }
 
@@ -485,4 +501,28 @@ void dPlayerControl_CmdCheckRevertShapeshift(PlayerControl* __this, bool animate
 	catch (...) {
 		LOG_DEBUG("Exception occurred in PlayerControl_RpcShapeshift (PlayerControl)");
 	}
+}
+
+void dPlayerControl_CmdReportDeadBody(PlayerControl* __this, GameData_PlayerInfo* target, MethodInfo* method) {
+	try {
+		if (State.DisableMeetings) {
+			return;
+		}
+	}
+	catch (...) {
+		Log.Debug("Exception occurred in CmdReportDeadBody (PlayerControl)");
+	}
+	PlayerControl_CmdReportDeadBody(__this, target, method);
+}
+
+void dPlayerControl_RpcStartMeeting(PlayerControl* __this, GameData_PlayerInfo* target, MethodInfo* method) {
+	try {
+		if (State.DisableMeetings) {
+			return;
+		}
+	}
+	catch (...) {
+		Log.Debug("Exception occurred in PlayerControl_RpcStartMeeting (PlayerControl)");
+	}
+	PlayerControl_RpcStartMeeting(__this, target, method);
 }

@@ -11,3 +11,4 @@ DO_APP_CLASS(LobbyBehaviour, "Assembly-CSharp, LobbyBehaviour");
 DO_APP_CLASS(MeetingHud, "Assembly-CSharp, MeetingHud");
 //DO_APP_CLASS(DestroyableSingleton_1_RoleManager_, "Assembly-CSharp, DestroyableSingleton_1_RoleManager_");
 DO_APP_CLASS(VoteBanSystem, "Assembly-CSharp, VoteBanSystem");
+DO_APP_CLASS(GameManager, "Assembly-CSharp, GameManager");

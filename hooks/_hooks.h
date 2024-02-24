@@ -78,3 +78,7 @@ void dMushroomWallDoor_SetDoorway(MushroomWallDoor* __this, bool open, MethodInf
 void dMushroomDoorSabotageMinigame_Begin(MushroomDoorSabotageMinigame* __this, PlayerTask* task, MethodInfo* method);
 void dLadder_SetDestinationCooldown(Ladder* __this, MethodInfo* method);
 void dZiplineConsole_SetDestinationCooldown(ZiplineConsole* __this, MethodInfo* method);
+void dPlayerControl_CmdReportDeadBody(PlayerControl* __this, GameData_PlayerInfo* target, MethodInfo* method);
+void dPlayerControl_RpcStartMeeting(PlayerControl* __this, GameData_PlayerInfo* target, MethodInfo* method);
+void dShipStatus_RpcUpdateSystem(ShipStatus* __this, SystemTypes__Enum systemType, int32_t amount, MethodInfo* method);
+void dShipStatus_RpcCloseDoorsOfType(ShipStatus* __this, SystemTypes__Enum type, MethodInfo* method);

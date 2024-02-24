@@ -152,6 +152,13 @@ public:
 };
 
 // sickomode
+class RpcEndGame : public RPCInterface {
+	GameOverReason__Enum reason;
+public:
+	RpcEndGame(GameOverReason__Enum reason);
+	virtual void Process() override;
+};
+
 class RpcForceSnapTo : public RPCInterface {
 	PlayerControl* Player;
 	Vector2 targetVector;

@@ -75,3 +75,13 @@ void RpcVoteKick::Process()
 
 	VoteBanSystem_CmdAddVote(VoteBanSystem__TypeInfo->static_fields->Instance, target->fields._.OwnerId, NULL);
 }
+
+RpcEndGame::RpcEndGame(GameOverReason__Enum reason)
+{
+	this->reason = reason;
+}
+
+void RpcEndGame::Process()
+{
+	GameManager_RpcEndGame(GameManager__TypeInfo->static_fields->_Instance_k__BackingField, reason, false, NULL);
+}

@@ -256,3 +256,5 @@ DO_APP_FUNC(void, PlayerControl_CmdCheckProtect, (PlayerControl* __this, PlayerC
 DO_APP_FUNC(void, PlayerControl_CmdCheckRevertShapeshift, (PlayerControl* __this, bool shouldAnimate, MethodInfo* method), "Assembly-CSharp, System.Void PlayerControl::CmdCheckRevertShapeshift(System.Boolean)");
 DO_APP_FUNC(void, InnerNetClient_KickPlayer, (InnerNetClient* __this, int32_t clientId, bool ban, MethodInfo* method), "Assembly-CSharp, System.Void InnerNet.InnerNetClient::KickPlayer(System.Int32, System.Boolean)");
 DO_APP_FUNC(void, VoteBanSystem_CmdAddVote, (VoteBanSystem* __this, int32_t clientId, MethodInfo* method), "Assembly-CSharp, System.Void VoteBanSystem::CmdAddVote(System.Int32)");
+DO_APP_FUNC(void, PlayerControl_RpcStartMeeting, (PlayerControl* __this, GameData_PlayerInfo* info, MethodInfo* method), "Assembly-CSharp, System.Void PlayerControl::RpcStartMeeting(GameData.PlayerInfo)");
+DO_APP_FUNC(void, GameManager_RpcEndGame, (GameManager* __this, GameOverReason__Enum endReason, bool showAd, MethodInfo* method), "Assembly-CSharp, System.Void GameManager::RpcEndGame(GameOverReason, System.Boolean)");

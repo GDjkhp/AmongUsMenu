@@ -149,6 +149,11 @@ public:
     bool NoAbilityCD = false;
     bool SetName = false;
     bool AnimationlessShapeshift = false;
+    bool DisableMeetings = false;
+    bool DisableSabotages = false;
+    bool DisableCallId = false;
+    uint8_t ToDisableCallId = 0;
+    int SelectedGameEndReasonId = 0;
 
     bool Wallhack = false;
     bool FreeCam = false;

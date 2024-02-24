@@ -10241,6 +10241,102 @@ namespace app
 #pragma endregion
 
 // sickomode
+    struct GameManager__Fields {
+        struct InnerNetObject__Fields _;
+        bool _ShouldCheckForGameEnd_k__BackingField;
+        bool _GameHasStarted_k__BackingField;
+        struct LogicGameFlow* _LogicFlow_k__BackingField;
+        struct LogicMinigame* _LogicMinigame_k__BackingField;
+        struct LogicRoleSelection* _LogicRoleSelection_k__BackingField;
+        struct LogicUsables* _LogicUsables_k__BackingField;
+        struct LogicOptions* _LogicOptions_k__BackingField;
+        struct DeadBody* deadBodyPrefab;
+        struct Logger_2* logger;
+        struct List_1_GameLogicComponent_* LogicComponents;
+    };
+
+    struct GameManager {
+        struct GameManager__Class* klass;
+        MonitorData* monitor;
+        struct GameManager__Fields fields;
+    };
+
+    struct GameManager__VTable {
+        VirtualInvokeData Equals;
+        VirtualInvokeData Finalize;
+        VirtualInvokeData GetHashCode;
+        VirtualInvokeData ToString;
+        VirtualInvokeData CompareTo;
+        VirtualInvokeData get_IsDirty;
+        VirtualInvokeData get_Chunked;
+        VirtualInvokeData OnDestroy;
+        VirtualInvokeData HandleRpc;
+        VirtualInvokeData Serialize;
+        VirtualInvokeData Deserialize;
+        VirtualInvokeData HandleDisconnect;
+        VirtualInvokeData HandleDisconnect_1;
+        VirtualInvokeData get_DeadBodyPrefab;
+        VirtualInvokeData __unknown;
+        VirtualInvokeData __unknown_1;
+        VirtualInvokeData StartGame;
+        VirtualInvokeData EndGame;
+        VirtualInvokeData OnPlayerDeath;
+        VirtualInvokeData FinishTask;
+        VirtualInvokeData FixedUpdate;
+        VirtualInvokeData OnPlayerDisconnect;
+        VirtualInvokeData DidHumansWin;
+        VirtualInvokeData DidImpostorsWin;
+        VirtualInvokeData __unknown_2;
+        VirtualInvokeData CanReportBodies;
+        VirtualInvokeData SabotagesEnabled;
+        VirtualInvokeData ShowCrewmatesKilled;
+        VirtualInvokeData get_RevealTeams;
+        VirtualInvokeData IsNormal;
+        VirtualInvokeData IsHideAndSeek;
+        VirtualInvokeData SetSpecialCosmetics;
+    };
+
+    struct GameManager__StaticFields {
+        struct GameManager* _Instance_k__BackingField;
+    };
+
+    struct GameManager__Class {
+        Il2CppClass_0 _0;
+        Il2CppRuntimeInterfaceOffsetPair* interfaceOffsets;
+        struct GameManager__StaticFields* static_fields;
+        const Il2CppRGCTXData* rgctx_data;
+        Il2CppClass_1 _1;
+        struct GameManager__VTable vtable;
+    };
+#if defined(_CPLUSPLUS_)
+    enum class GameOverReason__Enum : int32_t {
+        HumansByVote = 0x00000000,
+        HumansByTask = 0x00000001,
+        ImpostorByVote = 0x00000002,
+        ImpostorByKill = 0x00000003,
+        ImpostorBySabotage = 0x00000004,
+        ImpostorDisconnect = 0x00000005,
+        HumansDisconnect = 0x00000006,
+        HideAndSeek_ByTimer = 0x00000007,
+        HideAndSeek_ByKills = 0x00000008,
+    };
+
+#else
+    enum GameOverReason__Enum {
+        GameOverReason__Enum_HumansByVote = 0x00000000,
+        GameOverReason__Enum_HumansByTask = 0x00000001,
+        GameOverReason__Enum_ImpostorByVote = 0x00000002,
+        GameOverReason__Enum_ImpostorByKill = 0x00000003,
+        GameOverReason__Enum_ImpostorBySabotage = 0x00000004,
+        GameOverReason__Enum_ImpostorDisconnect = 0x00000005,
+        GameOverReason__Enum_HumansDisconnect = 0x00000006,
+        GameOverReason__Enum_HideAndSeek_ByTimer = 0x00000007,
+        GameOverReason__Enum_HideAndSeek_ByKills = 0x00000008,
+    };
+
+#endif
+
+
 #pragma region EngineerRole
     struct EngineerRole__Fields
     {
@@ -10861,7 +10957,7 @@ namespace app
     typedef Il2CppObject ExileController;
     typedef Il2CppObject SabotageSystemType;
     typedef Il2CppObject GameOptionsManager;
-    typedef Il2CppObject GameManager;
+    //typedef Il2CppObject GameManager;
     typedef Il2CppObject GameOptionsFactory;
     typedef Il2CppObject SettingsData;
     typedef Il2CppObject AccessibilitySettingsData;

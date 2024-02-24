@@ -16,9 +16,9 @@ namespace HostTab {
 	}
 
 	void Render() {
-		if (IsHost() && IsInLobby()) {
-			if (ImGui::BeginTabItem("Host")) {
-				GameOptions options;
+		if (ImGui::BeginTabItem("Host")) {
+			GameOptions options;
+			if (IsHost() && IsInLobby()) {
 				ImGui::Text("Select Roles:");
 				ImGui::BeginChild("host#list", ImVec2(200, 0) * State.dpiScale, true);
 				bool shouldEndListBox = ImGui::ListBoxHeader("Choose Roles", ImVec2(200, 150) * State.dpiScale);
@@ -81,47 +81,60 @@ namespace HostTab {
 					ImGui::ListBoxFooter();
 				ImGui::EndChild();
 				ImGui::SameLine();
-				ImGui::BeginChild("host#actions", ImVec2(200, 0) * State.dpiScale, true);
+			}
 
-				// AU v2022.8.24 has been able to change maps in lobby.
-				State.mapHostChoice = options.GetByte(app::ByteOptionNames__Enum::MapId);
-				if (State.mapHostChoice > 3)
-					State.mapHostChoice--;
-				State.mapHostChoice = std::clamp(State.mapHostChoice, 0, (int)MAP_NAMES.size()-1);
-				if (CustomListBoxInt("Map", &State.mapHostChoice, MAP_NAMES, 75 * State.dpiScale)) {
-					if (!IsInGame()) {
-						// disable flip
-						/*if (State.mapHostChoice == 3) {
-							options.SetByte(app::ByteOptionNames__Enum::MapId, 0);
-							State.FlipSkeld = true;
-						}
-						else {
-							options.SetByte(app::ByteOptionNames__Enum::MapId, State.mapHostChoice);
-							State.FlipSkeld = false;
-						}*/
-						auto id = State.mapHostChoice;
-						if (id >= 3) id++;
-						options.SetByte(app::ByteOptionNames__Enum::MapId, id);
+			ImGui::BeginChild("host#actions", ImVec2(200, 0) * State.dpiScale, true);
+
+			// AU v2022.8.24 has been able to change maps in lobby.
+			State.mapHostChoice = options.GetByte(app::ByteOptionNames__Enum::MapId);
+			if (State.mapHostChoice > 3)
+				State.mapHostChoice--;
+			State.mapHostChoice = std::clamp(State.mapHostChoice, 0, (int)MAP_NAMES.size() - 1);
+			if (IsInLobby() && CustomListBoxInt("Map", &State.mapHostChoice, MAP_NAMES, 75 * State.dpiScale)) {
+				if (!IsInGame()) {
+					// disable flip
+					/*if (State.mapHostChoice == 3) {
+						options.SetByte(app::ByteOptionNames__Enum::MapId, 0);
+						State.FlipSkeld = true;
+					}
+					else {
+						options.SetByte(app::ByteOptionNames__Enum::MapId, State.mapHostChoice);
+						State.FlipSkeld = false;
+					}*/
+					auto id = State.mapHostChoice;
+					if (id >= 3) id++;
+					options.SetByte(app::ByteOptionNames__Enum::MapId, id);
+				}
+			}
+			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+			if (IsInLobby() && ImGui::Button("Force Start of Game"))
+			{
+				app::InnerNetClient_SendStartGame((InnerNetClient*)(*Game::pAmongUsClient), NULL);
+			}
+			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+			if (ImGui::Checkbox("Modify impostor count", &State.impostor_mod))
+				State.Save();
+			/*if (State.impostor_mod &&
+				CustomListBoxInt("Impostor count", &State.impostors_amount_mod, IMPOSTOR_AMOUNTS, 75 * State.dpiScale)) {
+				if (State.impostors_amount_mod < 0 || State.impostors_amount_mod > 15) State.impostors_amount_mod = 0;
+			}*/
+			State.impostors_amount_mod = std::clamp(State.impostors_amount_mod, 0, int(Game::MAX_PLAYERS));
+			if (State.impostor_mod && ImGui::InputInt("Count", &State.impostors_amount_mod))
+				State.Save();
+			if (ImGui::Checkbox("Disable Meetings", &State.DisableMeetings))
+				State.Save();
+			if (ImGui::Checkbox("Disable Sabotages", &State.DisableSabotages))
+				State.Save();
+			if (IsInMultiplayerGame() || IsInLobby()) { //lobby isn't possible in freeplay
+				if (IsInGame()) {
+					CustomListBoxInt("Reason", &State.SelectedGameEndReasonId, GAMEENDREASON, 120.0f * State.dpiScale);
+					if (ImGui::Button("End Game")) {
+						State.rpcQueue.push(new RpcEndGame(GameOverReason__Enum(std::clamp(State.SelectedGameEndReasonId, 0, 8))));
 					}
 				}
-				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
-				if (IsInLobby() && ImGui::Button("Force Start of Game"))
-				{
-					app::InnerNetClient_SendStartGame((InnerNetClient*)(*Game::pAmongUsClient), NULL);
-				}
-				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
-				if (ImGui::Checkbox("Modify impostor count", &State.impostor_mod))
-					State.Save();
-				/*if (State.impostor_mod && 
-					CustomListBoxInt("Impostor count", &State.impostors_amount_mod, IMPOSTOR_AMOUNTS, 75 * State.dpiScale)) {
-					if (State.impostors_amount_mod < 0 || State.impostors_amount_mod > 15) State.impostors_amount_mod = 0;
-				}*/
-				State.impostors_amount_mod = std::clamp(State.impostors_amount_mod, 0, int(Game::MAX_PLAYERS));
-				if (State.impostor_mod && ImGui::InputInt("Count", &State.impostors_amount_mod))
-					State.Save();
-				ImGui::EndChild();
-				ImGui::EndTabItem();
 			}
+			ImGui::EndChild();
+			ImGui::EndTabItem();
 		}
 	}
 	const ptrdiff_t GetRoleCount(RoleType role)

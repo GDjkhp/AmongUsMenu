@@ -44,3 +44,17 @@ void dShipStatus_OnEnable(ShipStatus* __this, MethodInfo* method) {
 	State.userName = GetPlayerName();
 	ResetOriginalAppearance();
 }
+
+void dShipStatus_RpcUpdateSystem(ShipStatus* __this, SystemTypes__Enum systemType, int32_t amount, MethodInfo* method) {
+	if (IsHost() && State.DisableSabotages) {
+		return;
+	}
+	ShipStatus_RpcUpdateSystem(__this, systemType, amount, method);
+}
+
+void dShipStatus_RpcCloseDoorsOfType(ShipStatus* __this, SystemTypes__Enum type, MethodInfo* method) {
+	if (State.DisableSabotages) {
+		return;
+	}
+	ShipStatus_RpcCloseDoorsOfType(__this, type, method);
+}
