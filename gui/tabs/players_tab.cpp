@@ -15,7 +15,7 @@ namespace PlayersTab {
 			if (ImGui::BeginTabItem("Players")) {
 				ImGui::BeginChild("players#list", ImVec2(200, 0) * State.dpiScale, true);
 				auto selectedPlayer = State.selectedPlayer.validate();
-				bool shouldEndListBox = ImGui::ListBoxHeader("###players#list", ImVec2(200, 150) * State.dpiScale);
+				bool shouldEndListBox = ImGui::ListBoxHeader("###players#list", ImVec2(200, 290) * State.dpiScale);
 				auto localData = GetPlayerData(*Game::pLocalPlayer);
 				for (auto playerData : GetAllPlayerData()) {
 					const auto& player = PlayerSelection(playerData).validate();
@@ -210,7 +210,7 @@ namespace PlayersTab {
 						}
 					}
 					ImGui::SameLine();
-					if (ImGui::Button("Ban")) {
+					if (IsHost() && ImGui::Button("Ban")) {
 						app::InnerNetClient_KickPlayer((InnerNetClient*)(*Game::pAmongUsClient), selectedPlayer.get_PlayerControl()->fields._.OwnerId, true, NULL);
 					}
 

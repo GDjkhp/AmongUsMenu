@@ -21,7 +21,7 @@ namespace HostTab {
 			if (IsHost() && IsInLobby()) {
 				ImGui::Text("Select Roles:");
 				ImGui::BeginChild("host#list", ImVec2(200, 0) * State.dpiScale, true);
-				bool shouldEndListBox = ImGui::ListBoxHeader("Choose Roles", ImVec2(200, 150) * State.dpiScale);
+				bool shouldEndListBox = ImGui::ListBoxHeader("Choose Roles", ImVec2(200, 300) * State.dpiScale);
 				auto allPlayers = GetAllPlayerData();
 				auto playerAmount = allPlayers.size();
 				auto maxImposterAmount = GetMaxImposterAmount((int)playerAmount);
@@ -106,20 +106,20 @@ namespace HostTab {
 					options.SetByte(app::ByteOptionNames__Enum::MapId, id);
 				}
 			}
-			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+			//ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
 			if (IsHost() && IsInLobby() && ImGui::Button("Force Start of Game"))
 			{
 				app::InnerNetClient_SendStartGame((InnerNetClient*)(*Game::pAmongUsClient), NULL);
 			}
-			ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
-			if (ImGui::Checkbox("Modify impostor count", &State.impostor_mod))
+			//ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+			if (IsHost() && IsInLobby() && ImGui::Checkbox("Modify impostor count", &State.impostor_mod))
 				State.Save();
 			/*if (State.impostor_mod &&
 				CustomListBoxInt("Impostor count", &State.impostors_amount_mod, IMPOSTOR_AMOUNTS, 75 * State.dpiScale)) {
 				if (State.impostors_amount_mod < 0 || State.impostors_amount_mod > 15) State.impostors_amount_mod = 0;
 			}*/
 			State.impostors_amount_mod = std::clamp(State.impostors_amount_mod, 0, int(Game::MAX_PLAYERS));
-			if (State.impostor_mod && ImGui::InputInt("Count", &State.impostors_amount_mod))
+			if (IsHost() && IsInLobby() && State.impostor_mod && ImGui::InputInt("Count", &State.impostors_amount_mod))
 				State.Save();
 			if (ImGui::Checkbox("Disable Meetings", &State.DisableMeetings))
 				State.Save();
