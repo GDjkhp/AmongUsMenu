@@ -59,24 +59,19 @@ namespace PlayersTab {
 				}
 				if (shouldEndListBox)
 					ImGui::ListBoxFooter();
-
-				if (selectedPlayer.has_value()) //Upon first startup no player is selected.  Also rare case where the playerdata is deleted before the next gui cycle
-				{
-					ImGui::Text("Is using AUM: %s",
-						selectedPlayer.is_LocalPlayer() || std::count(State.aumUsers.begin(), State.aumUsers.end(), selectedPlayer.get_PlayerData()->fields.PlayerId)
-						? "Yes" : "No");
-				}
-
-
-				if (IsInMultiplayerGame() && IsInGame()) {
-					float taskPercentage = (float) (*Game::pGameData)->fields.CompletedTasks / (float) (*Game::pGameData)->fields.TotalTasks;
-					ImGui::TextColored(ImVec4(1.0f - taskPercentage, 1.0f, 1.0f - taskPercentage, 1.0f), "%.1f%% Total Tasks Completed", taskPercentage * 100);
-				}
-
 				ImGui::EndChild();
 				ImGui::SameLine();
 				ImGui::BeginChild("players#actions", ImVec2(200, 0) * State.dpiScale, true);
-
+				if (selectedPlayer.has_value()) //Upon first startup no player is selected.  Also rare case where the playerdata is deleted before the next gui cycle
+				{
+					bool aum = selectedPlayer.is_LocalPlayer() || std::count(State.aumUsers.begin(), State.aumUsers.end(), selectedPlayer.get_PlayerData()->fields.PlayerId);
+					ImGui::TextColored(aum ? ImVec4(0, 1.0f, 0, 1.0f) : ImVec4(1.0f, 0, 0, 1.0f), 
+						"Is using AUM: %s", aum ? "Yes" : "No");
+				}
+				if (IsInMultiplayerGame() && IsInGame()) {
+					float taskPercentage = (float)(*Game::pGameData)->fields.CompletedTasks / (float)(*Game::pGameData)->fields.TotalTasks;
+					ImGui::TextColored(ImVec4(1.0f - taskPercentage, 1.0f, 1.0f - taskPercentage, 1.0f), "%.1f%% Total Tasks Completed", taskPercentage * 100);
+				}
 				//GameOptions options;
 				if (IsInGame() /* && options.GetGameMode() != GameModes__Enum::HideNSeek */ && !GetPlayerData(*Game::pLocalPlayer)->fields.IsDead) { //Player selection doesn't matter
 					if (ImGui::Button("Call Meeting")) {
