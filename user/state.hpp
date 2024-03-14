@@ -155,6 +155,19 @@ public:
     uint8_t ToDisableCallId = 0;
     int SelectedGameEndReasonId = 0;
 
+    // the hacked settings?
+    int NumImpostors = 0;
+    int KillDistanceHost = 0;
+    int CommonTasks = 0;
+    int ShortTasks = 0;
+    int LongTasks = 0;
+    int CrewVents = 0;
+    float KillCooldown = 0;
+    float EscapeTime = 0;
+    float FinalEscapeTime = 0;
+    float EngineerVentTime = 0;
+    bool ToggleHackSettings = false;
+
     bool Wallhack = false;
     bool FreeCam = false;
     float FreeCamSpeed = 1.f;

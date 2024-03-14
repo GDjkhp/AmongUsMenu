@@ -83,7 +83,7 @@ namespace HostTab {
 				ImGui::SameLine();
 			}
 
-			ImGui::BeginChild("host#actions", ImVec2(210, 0) * State.dpiScale, true);
+			ImGui::BeginChild("host#actions", ImVec2(300, 0) * State.dpiScale, true);
 
 			// AU v2022.8.24 has been able to change maps in lobby.
 			State.mapHostChoice = options.GetByte(app::ByteOptionNames__Enum::MapId);
@@ -131,6 +131,64 @@ namespace HostTab {
 					if (ImGui::Button("End Game")) {
 						State.rpcQueue.push(new RpcEndGame(GameOverReason__Enum(std::clamp(State.SelectedGameEndReasonId, 0, 8))));
 					}
+				}
+			}
+			// hacked game settings
+			if (IsHost() && IsInLobby())
+				ImGui::Checkbox("Unlock settings", &State.ToggleHackSettings);
+			if (IsHost() && IsInLobby() && State.ToggleHackSettings) {
+				// load settings?
+				State.NumImpostors = options.GetInt(app::Int32OptionNames__Enum::NumImpostors);
+				State.KillDistanceHost = options.GetInt(app::Int32OptionNames__Enum::KillDistance);
+				State.CrewVents = options.GetInt(app::Int32OptionNames__Enum::CrewmateVentUses);
+
+				State.CommonTasks = options.GetInt(app::Int32OptionNames__Enum::NumCommonTasks);
+				State.ShortTasks = options.GetInt(app::Int32OptionNames__Enum::NumShortTasks);
+				State.LongTasks = options.GetInt(app::Int32OptionNames__Enum::NumLongTasks);
+
+				State.KillCooldown = options.GetFloat(app::FloatOptionNames__Enum::KillCooldown);
+				State.EscapeTime = options.GetFloat(app::FloatOptionNames__Enum::EscapeTime);
+				State.FinalEscapeTime = options.GetFloat(app::FloatOptionNames__Enum::FinalEscapeTime);
+				State.EngineerVentTime = options.GetFloat(app::FloatOptionNames__Enum::EngineerInVentMaxTime);
+
+				// useless, remove this from state later
+				/*if (ImGui::InputInt("NumImpostors", &State.NumImpostors))
+					options.SetInt(app::Int32OptionNames__Enum::NumImpostors, State.NumImpostors);
+				if (ImGui::InputInt("KillDistance", &State.KillDistanceHost))
+					options.SetInt(app::Int32OptionNames__Enum::KillDistance, State.KillDistanceHost);
+				if (options.GetGameMode() == GameModes__Enum::Normal &&
+					ImGui::InputFloat("EngineerInVentMaxTime", &State.EngineerVentTime))
+					options.SetFloat(app::FloatOptionNames__Enum::EngineerInVentMaxTime, State.EngineerVentTime);*/
+
+				if (ImGui::InputInt("NumCommonTasks", &State.CommonTasks))
+					options.SetInt(app::Int32OptionNames__Enum::NumCommonTasks, State.CommonTasks);
+				if (ImGui::InputInt("NumShortTasks", &State.ShortTasks))
+					options.SetInt(app::Int32OptionNames__Enum::NumShortTasks, State.ShortTasks);
+				if (ImGui::InputInt("NumLongTasks", &State.LongTasks))
+					options.SetInt(app::Int32OptionNames__Enum::NumLongTasks, State.LongTasks);
+
+				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
+				ImGui::Separator();
+				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
+
+				if (options.GetGameMode() == GameModes__Enum::HideNSeek &&
+					ImGui::InputInt("CrewmateVentUses", &State.CrewVents))
+					options.SetInt(app::Int32OptionNames__Enum::CrewmateVentUses, State.CrewVents);
+
+				if (ImGui::InputFloat("KillCooldown", &State.KillCooldown))
+					options.SetFloat(app::FloatOptionNames__Enum::KillCooldown, State.KillCooldown);
+				if (ImGui::Button("ZERO KILL COOLDOWN"))
+					options.SetFloat(app::FloatOptionNames__Enum::KillCooldown, 1.4E-45f); // force cooldown > 0 as ur unable to kill otherwise
+
+				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
+				ImGui::Separator();
+				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
+
+				if (options.GetGameMode() == GameModes__Enum::HideNSeek) {
+					if (ImGui::InputFloat("EscapeTime", &State.EscapeTime))
+						options.SetFloat(app::FloatOptionNames__Enum::EscapeTime, State.EscapeTime);
+					if (ImGui::InputFloat("FinalEscapeTime", &State.FinalEscapeTime))
+						options.SetFloat(app::FloatOptionNames__Enum::FinalEscapeTime, State.FinalEscapeTime);
 				}
 			}
 			ImGui::EndChild();
