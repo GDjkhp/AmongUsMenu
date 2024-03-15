@@ -159,13 +159,46 @@ namespace HostTab {
 				if (options.GetGameMode() == GameModes__Enum::Normal &&
 					ImGui::InputFloat("EngineerInVentMaxTime", &State.EngineerVentTime))
 					options.SetFloat(app::FloatOptionNames__Enum::EngineerInVentMaxTime, State.EngineerVentTime);*/
+				
+				bool commonTasksChanged = ImGui::InputInt("CommonTasks", &State.CommonTasks);
+				bool shortTasksChanged = ImGui::InputInt("ShortTasks", &State.ShortTasks);
+				bool longTasksChanged = ImGui::InputInt("LongTasks", &State.LongTasks);
 
-				if (ImGui::InputInt("NumCommonTasks", &State.CommonTasks))
-					options.SetInt(app::Int32OptionNames__Enum::NumCommonTasks, State.CommonTasks);
-				if (ImGui::InputInt("NumShortTasks", &State.ShortTasks))
-					options.SetInt(app::Int32OptionNames__Enum::NumShortTasks, State.ShortTasks);
-				if (ImGui::InputInt("NumLongTasks", &State.LongTasks))
-					options.SetInt(app::Int32OptionNames__Enum::NumLongTasks, State.LongTasks);
+				if (commonTasksChanged || shortTasksChanged || longTasksChanged) {
+					// Ensure values are within individual limits first
+					State.CommonTasks = std::clamp(State.CommonTasks, 0, 255);
+					State.ShortTasks = std::clamp(State.ShortTasks, 0, 255);
+					State.LongTasks = std::clamp(State.LongTasks, 0, 255);
+
+					int totalTasks = State.CommonTasks + State.ShortTasks + State.LongTasks;
+					if (totalTasks > 255) {
+						int excess = totalTasks - 255;
+
+						// Adjust the most recently changed value to fit the total within 255
+						if (commonTasksChanged) {
+							State.CommonTasks = max(0, State.CommonTasks - excess);
+						}
+						else if (shortTasksChanged) {
+							State.ShortTasks = max(0, State.ShortTasks - excess);
+						}
+						else if (longTasksChanged) {
+							State.LongTasks = max(0, State.LongTasks - excess);
+						}
+
+					}
+
+					// Update values in options only if within the overall range
+					if (commonTasksChanged) {
+						options.SetInt(app::Int32OptionNames__Enum::NumCommonTasks, State.CommonTasks);
+					}
+					if (shortTasksChanged) {
+						options.SetInt(app::Int32OptionNames__Enum::NumShortTasks, State.ShortTasks);
+					}
+					if (longTasksChanged) {
+						options.SetInt(app::Int32OptionNames__Enum::NumLongTasks, State.LongTasks);
+					}
+				}
+
 
 				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
 				ImGui::Separator();
