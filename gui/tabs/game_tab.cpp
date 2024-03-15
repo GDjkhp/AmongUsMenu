@@ -182,10 +182,6 @@ namespace GameTab {
 					ImGui::Text("Max Shapeshifters: %d", roleRates.GetRoleCount(app::RoleTypes__Enum::Shapeshifter));
 					ImGui::Text("Shapeshifter CD: %.2f", options.GetFloat(app::FloatOptionNames__Enum::ShapeshifterCooldown, 1.0F));
 					ImGui::Text("Shapeshifter Duration: %.2f", options.GetFloat(app::FloatOptionNames__Enum::ShapeshifterDuration, 1.0F));
-
-					ImGui::Dummy(ImVec2(3, 3) * State.dpiScale);
-					ImGui::Separator();
-					ImGui::Dummy(ImVec2(3, 3) * State.dpiScale);
 				}
 				else if (options.GetGameMode() == GameModes__Enum::HideNSeek) {
 					// TODO: HideNSeek

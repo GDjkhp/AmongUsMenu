@@ -159,7 +159,21 @@ namespace HostTab {
 				if (options.GetGameMode() == GameModes__Enum::Normal &&
 					ImGui::InputFloat("EngineerInVentMaxTime", &State.EngineerVentTime))
 					options.SetFloat(app::FloatOptionNames__Enum::EngineerInVentMaxTime, State.EngineerVentTime);*/
-				
+
+				if (options.GetGameMode() == GameModes__Enum::HideNSeek) {
+					if (ImGui::InputInt("CrewmateVentUses", &State.CrewVents))
+						options.SetInt(app::Int32OptionNames__Enum::CrewmateVentUses, State.CrewVents);
+				}
+				else {
+					if (ImGui::InputFloat("KillCooldown", &State.KillCooldown))
+						options.SetFloat(app::FloatOptionNames__Enum::KillCooldown, State.KillCooldown);
+					if (ImGui::Button("ZERO KILL COOLDOWN"))
+						options.SetFloat(app::FloatOptionNames__Enum::KillCooldown, 1.4E-45f); // force cooldown > 0 as ur unable to kill otherwise
+				}
+				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+				ImGui::Separator();
+				ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+
 				bool commonTasksChanged = ImGui::InputInt("CommonTasks", &State.CommonTasks);
 				bool shortTasksChanged = ImGui::InputInt("ShortTasks", &State.ShortTasks);
 				bool longTasksChanged = ImGui::InputInt("LongTasks", &State.LongTasks);
@@ -199,25 +213,11 @@ namespace HostTab {
 					}
 				}
 
-
-				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
-				ImGui::Separator();
-				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
-
-				if (options.GetGameMode() == GameModes__Enum::HideNSeek &&
-					ImGui::InputInt("CrewmateVentUses", &State.CrewVents))
-					options.SetInt(app::Int32OptionNames__Enum::CrewmateVentUses, State.CrewVents);
-
-				if (ImGui::InputFloat("KillCooldown", &State.KillCooldown))
-					options.SetFloat(app::FloatOptionNames__Enum::KillCooldown, State.KillCooldown);
-				if (ImGui::Button("ZERO KILL COOLDOWN"))
-					options.SetFloat(app::FloatOptionNames__Enum::KillCooldown, 1.4E-45f); // force cooldown > 0 as ur unable to kill otherwise
-
-				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
-				ImGui::Separator();
-				ImGui::Dummy(ImVec2(7, 7)* State.dpiScale);
-
 				if (options.GetGameMode() == GameModes__Enum::HideNSeek) {
+					ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+					ImGui::Separator();
+					ImGui::Dummy(ImVec2(7, 7) * State.dpiScale);
+
 					if (ImGui::InputFloat("EscapeTime", &State.EscapeTime))
 						options.SetFloat(app::FloatOptionNames__Enum::EscapeTime, State.EscapeTime);
 					if (ImGui::InputFloat("FinalEscapeTime", &State.FinalEscapeTime))
