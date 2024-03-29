@@ -69,9 +69,10 @@ public:
 };
 
 class RpcMurderPlayer : public RPCInterface {
-	PlayerSelection target;
+	PlayerControl* Player;
+	PlayerControl* target;
 public:
-	RpcMurderPlayer(const PlayerSelection& target);
+	RpcMurderPlayer(PlayerControl* Player, PlayerControl* target);
 	virtual void Process() override;
 };
 

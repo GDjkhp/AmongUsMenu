@@ -180,6 +180,16 @@ namespace PlayersTab {
 						}
 					}
 
+					if (ImGui::Button("Kill"))
+					{
+						if (IsInGame()) {
+							State.rpcQueue.push(new RpcMurderPlayer((*Game::pLocalPlayer), selectedPlayer.get_PlayerControl()));
+						}
+						else if (IsInLobby()) {
+							State.lobbyRpcQueue.push(new RpcMurderPlayer((*Game::pLocalPlayer), selectedPlayer.get_PlayerControl()));
+						}
+					}
+
 					if (IsInGame() && PlayerIsImpostor(GetPlayerData(*Game::pLocalPlayer))
 						&& !selectedPlayer.get_PlayerData()->fields.IsDead
 						&& !selectedPlayer.get_PlayerControl()->fields.inVent
