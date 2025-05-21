@@ -2,14 +2,10 @@
 #include "main.h"
 #include "il2cpp-init.h"
 #include <VersionHelpers.h>
-#include "crc32.h"
 #include <shellapi.h>
 #include <iostream>
-#include "game.h"
 #include "_hooks.h"
-#include "logger.h"
-#include "state.hpp"
-#include "version.h"
+#include "utility.h"
 #include <fstream>
 #include <sstream>
 #include "gitparams.h"

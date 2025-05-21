@@ -1,13 +1,8 @@
 #include "pch-il2cpp.h"
 #include "_hooks.h"
 #include "detours/detours.h"
-#include "DirectX.h"
 #include <iostream>
 #include "main.h"
-#include "SignatureScan.hpp"
-#include "game.h"
-
-using namespace Game;
 
 bool HookFunction(PVOID* ppPointer, PVOID pDetour, const char* functionName) {
 	if (const auto error = DetourAttach(ppPointer, pDetour); error != NO_ERROR) {
