@@ -29,9 +29,6 @@ bool UnhookFunction(PVOID* ppPointer, PVOID pDetour, const char* functionName) {
 void DetourInitilization() {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
-
-	if (SaveManager_GetPurchase != nullptr)
-		HOOKFUNC(SaveManager_GetPurchase);
 	if (PlayerPurchasesData_GetPurchase != nullptr) // v2022.10.25s
 		HOOKFUNC(PlayerPurchasesData_GetPurchase);
 
@@ -42,11 +39,7 @@ void DetourUninitialization()
 {
 	DetourTransactionBegin();
 	DetourUpdateThread(GetCurrentThread());
-
-	if (SaveManager_GetPurchase != nullptr)
-		UNHOOKFUNC(SaveManager_GetPurchase);
 	if (PlayerPurchasesData_GetPurchase != nullptr) // v2022.10.25s
 		UNHOOKFUNC(PlayerPurchasesData_GetPurchase);
-
 	DetourTransactionCommit();
 }

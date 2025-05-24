@@ -19,27 +19,6 @@
     <ClCompile Include="hooks\_hooks.cpp">
       <Filter>hooks</Filter>
     </ClCompile>
-    <ClCompile Include="includes\crc32.cpp">
-      <Filter>includes</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\directx11.cpp">
-      <Filter>includes</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\imgui\imgui.cpp">
-      <Filter>includes\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\imgui\imgui_draw.cpp">
-      <Filter>includes\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\imgui\imgui_impl_dx11.cpp">
-      <Filter>includes\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\imgui\imgui_impl_win32.cpp">
-      <Filter>includes\imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="includes\imgui\imgui_widgets.cpp">
-      <Filter>includes\imgui</Filter>
-    </ClCompile>
     <ClCompile Include="includes\detours\detours.cpp">
       <Filter>includes\detours</Filter>
     </ClCompile>
@@ -92,42 +71,6 @@
     </ClInclude>
     <ClInclude Include="framework\version.h">
       <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\crc32.h">
-      <Filter>includes</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\directx11.h">
-      <Filter>includes</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\json.hpp">
-      <Filter>includes</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\stb_image.h">
-      <Filter>includes</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui\imconfig.h">
-      <Filter>includes\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui\imgui.h">
-      <Filter>includes\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui\imgui_impl_dx11.h">
-      <Filter>includes\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui\imgui_impl_win32.h">
-      <Filter>includes\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui\imgui_internal.h">
-      <Filter>includes\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui\imstb_rectpack.h">
-      <Filter>includes\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui\imstb_textedit.h">
-      <Filter>includes\imgui</Filter>
-    </ClInclude>
-    <ClInclude Include="includes\imgui\imstb_truetype.h">
-      <Filter>includes\imgui</Filter>
     </ClInclude>
     <ClInclude Include="includes\detours\detours.h">
       <Filter>includes\detours</Filter>
