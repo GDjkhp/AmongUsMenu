@@ -9,3 +9,4 @@ Build using "Release_Version". It will automatically be loaded by the Game itsel
 
 ## Special Thanks
 * [BitCrackers](https://github.com/BitCrackers) for making [AmongUsMenu](https://github.com/BitCrackers/AmongUsMenu)
+* [g0aty](https://github.com/g0aty) for maintaining [SickoMenu](https://github.com/g0aty/SickoMenu)
