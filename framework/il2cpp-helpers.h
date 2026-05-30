@@ -42,7 +42,7 @@ namespace app {
 				static_assert(std::is_arithmetic_v<key_type> || is_scoped_enum_v<key_type>);
 				if (!_Ptr) return nullptr;
 				const auto FindEntryMethod = ((System_Collections_Generic_Dictionary_TKey__TValue__RGCTXs*)(_Ptr->klass->rgctx_data))
-					->_17_System_Collections_Generic_Dictionary_TKey__TValue__FindEntry;
+					->_34_System_Collections_Generic_Dictionary_TKey__TValue__FindEntry;
 				auto num = ((int32_t(*)(void*, key_type, const void*))(FindEntryMethod->methodPointer))(_Ptr, _Keyval, FindEntryMethod);
 				if (num < 0)
 					return nullptr;

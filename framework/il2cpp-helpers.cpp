@@ -47,7 +47,7 @@ std::string convert_from_string(app::String* input) {
 }
 
 app::String* convert_to_string(std::string_view input) {
-	return (app::String*)il2cpp_string_new_len(input.data(), input.length());
+	return (app::String*)il2cpp_string_new_len(input.data(), (uint32_t)input.length());
 }
 
 KLASS translate_klass(KLASS klass_input) {
@@ -283,10 +283,10 @@ bool cctor_finished(Il2CppClass* klass)
 		auto size = il2cpp_class_get_bitmap_size(klass);
 		std::vector<size_t> buffer(size / sizeof(size_t));
 		il2cpp_class_get_bitmap(klass, buffer.data());
-		if (!klass->initialized) {
+		/*if (!klass->initialized) {
 			STREAM_ERROR("Class " << klass->name << " il2cpp_class_get_bitmap() failure");
 			return false;
-		}
+		}*/
 	}
 	//If we don't have a static constructor, no need to wait
 	if (!klass->has_cctor) return true;

@@ -6,12 +6,36 @@
 
 HMODULE version_dll;
 
+#ifdef _WIN64
+
+#pragma warning (disable: 4081)
+
+// reference: https://github.com/BitCrackers/version-proxy/blob/main/src/version.cpp
+// this file used to be a stripped down version of the previous version.cpp optimized for 32-bit with a few tweaks,
+// which only had minor changes since i forked sicko from AUM
+// fun fact: AUM and the version-proxy have the same BitCrackers team behind them, yay!
+
+#define STRINGIFY(name) #name
+#define EXPORT_FUNCTION comment(linker, "/EXPORT:" __FUNCTION__ "=" __FUNCDNAME__)
+#define WRAPPER_GENFUNC(name) \
+    FARPROC o##name; \
+    __declspec(dllexport) void WINAPI _##name() \
+    { \
+        __pragma(STRINGIFY(EXPORT_FUNCTION)); \
+        o##name(); \
+    }
+
+#else
+
 #define WRAPPER_GENFUNC(name) \
 	FARPROC o##name; \
 	__declspec(naked) void _##name() \
 	{ \
 		__asm jmp[o##name] \
 	}
+
+#endif
+
 
 WRAPPER_GENFUNC(GetFileVersionInfoA)
 WRAPPER_GENFUNC(GetFileVersionInfoByHandle)
@@ -37,12 +61,12 @@ void load_version() {
 	char systemPath[MAX_PATH];
 	GetSystemDirectoryA(systemPath, MAX_PATH);
 	strcat_s(systemPath, "\\version.dll");
-	version_dll = LoadLibraryA(systemPath);	
+	version_dll = LoadLibraryA(systemPath);
 
 #if _DEBUG
 	if (!version_dll) {
 		std::string message = "Unable to load " + std::string(systemPath);
-		MessageBoxA(NULL, message.c_str(), "AmongUsMenu", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
+		MessageBoxA(NULL, message.c_str(), "SickoMenu", MB_OK | MB_ICONERROR | MB_SYSTEMMODAL);
 	}
 #endif
 
@@ -82,7 +106,25 @@ DWORD WINAPI Load(LPVOID lpParam) {
 
 	if (applicationPath.filename() != "Among Us.exe") return 0;
 
-	std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+	// Wait for Unity.InitializeEngineNoGraphics().
+	HWND hWnd = nullptr;
+	while (true) {
+		hWnd = FindWindowEx(nullptr, hWnd, TEXT("UnityWndClass"), nullptr);
+		if (hWnd) {
+			DWORD pid = 0;
+			GetWindowThreadProcessId(hWnd, &pid);
+			if (pid == GetCurrentProcessId()) {
+				break;
+			}
+			continue;
+		}
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}
+	// Wait for Unity.InitializeEngineGraphics().
+	while (!IsWindowVisible(hWnd)) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+	}
+	//std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 	Run(lpParam);
 
 	return 0;
